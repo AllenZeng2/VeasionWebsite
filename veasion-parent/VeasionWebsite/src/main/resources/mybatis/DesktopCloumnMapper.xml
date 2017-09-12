@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.veasion.mapper.DesktopCloumnMapper" >
+  <resultMap id="BaseResultMap" type="cn.veasion.entity.DesktopCloumn" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="INTEGER" />
+    <result column="width" property="width" jdbcType="INTEGER" />
+    <result column="height" property="height" jdbcType="INTEGER" />
+    <result column="show_type" property="showType" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, url, title, icon, width, height, show_type, status, create_date
+  </sql>
+  
+  <!-- 分页查询 -->
+  <select id="select" resultMap="BaseResultMap" parameterType="cn.veasion.bean.PageModel">
+  	select d.* from desktop_cloumn d where 1=1 
+  	<include refid="pageModelWhere" />
+  	<if test="orderBy != null">
+  		order by #{orderBy} ${isDesc ? "desc" : "asc"}
+  	</if>
+  	limit #{limitStart}, #{limitEnd}
+  </select>
+  
+  <select id="count" resultType="int" parameterType="cn.veasion.bean.PageModel">
+  	select count(*) from desktop_cloumn d where 1=1 
+  	<include refid="pageModelWhere" />
+  </select>
+  
+  <sql id="pageModelWhere">
+  	<if test="obj != null">
+  		<if test="obj.id != null">
+  			and d.id=#{obj.id}
+  		</if>
+  		<if test="obj.url != null">
+  			and d.url=#{obj.url}
+  		</if>
+  		<if test="obj.title != null">
+  			and d.title like CONCAT('%',#{obj.title},'%')
+  		</if>
+  		<if test="obj.status != null">
+  			and d.status=#{obj.status}
+  		</if>
+  	</if>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from desktop_cloumn
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from desktop_cloumn
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.veasion.entity.DesktopCloumn" >
+    insert into desktop_cloumn (id, url, title, 
+      icon, width, height, 
+      show_type, status, create_date
+      )
+    values (#{id,jdbcType=INTEGER}, #{url,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{icon,jdbcType=INTEGER}, #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, 
+      #{showType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.veasion.entity.DesktopCloumn" >
+    insert into desktop_cloumn
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="showType != null" >
+        show_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=INTEGER},
+      </if>
+      <if test="showType != null" >
+        #{showType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.veasion.entity.DesktopCloumn" >
+    update desktop_cloumn
+    <set >
+      <if test="url != null" >
+        url = #{url,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=INTEGER},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=INTEGER},
+      </if>
+      <if test="showType != null" >
+        show_type = #{showType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.veasion.entity.DesktopCloumn" >
+    update desktop_cloumn
+    set url = #{url,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=INTEGER},
+      width = #{width,jdbcType=INTEGER},
+      height = #{height,jdbcType=INTEGER},
+      show_type = #{showType,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

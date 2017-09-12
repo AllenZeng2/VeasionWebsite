@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <artifactId>VeasionCommon</artifactId>
+  <packaging>jar</packaging>
+  <name>VeasionCommon</name>
+  
+  <parent>
+    <groupId>cn.veasion</groupId>
+    <artifactId>veasion-parent</artifactId>
+    <version>1.0</version>
+  </parent>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <dependencies>
+  	<!-- servlet -->
+  	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	
+	<!--commons -->
+	<dependency>
+		<groupId>commons-lang</groupId>
+		<artifactId>commons-lang</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-collections</groupId>
+		<artifactId>commons-collections</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-beanutils</groupId>
+		<artifactId>commons-beanutils</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+	</dependency>
+	
+	<!-- http -->
+	<dependency>
+		<groupId>commons-httpclient</groupId>
+		<artifactId>commons-httpclient</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpclient</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpcore</artifactId>
+	</dependency>
+	
+	<!-- aliyun oss -->
+	<dependency>
+		<groupId>com.aliyun.oss</groupId>
+		<artifactId>aliyun-sdk-oss</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>com.aliyun</groupId>
+		<artifactId>aliyun-java-sdk-core</artifactId>
+	</dependency>
+	
+	<!-- jsoup -->
+	<dependency>
+		<groupId>org.jsoup</groupId>
+		<artifactId>jsoup</artifactId>
+	</dependency>
+	
+	<!-- json JsonIgnore -->
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-databind</artifactId>
+	</dependency>
+	
+  </dependencies>
+  
+  <build>
+	<finalName>VeasionCommon</finalName>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+		</plugin>
+	</plugins>
+  </build>
+  
+</project>

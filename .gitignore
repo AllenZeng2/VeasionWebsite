@@ -1,0 +1,11 @@
+﻿*.class
+*.classpath
+*.war
+*.project
+.settings/
+target/
+.metadata/
+Servers/
+.recommenders/
+
+ 

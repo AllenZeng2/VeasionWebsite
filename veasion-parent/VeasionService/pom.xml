@@ -1,0 +1,109 @@
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <artifactId>VeasionService</artifactId>
+  <packaging>jar</packaging>
+  <name>VeasionService</name>
+  
+  <parent>
+    <groupId>cn.veasion</groupId>
+    <artifactId>veasion-parent</artifactId>
+    <version>1.0</version>
+  </parent>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <dependencies>
+  	<dependency>
+  		<groupId>cn.veasion</groupId>
+  		<artifactId>VeasionCommon</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>cn.veasion</groupId>
+  		<artifactId>VeasionInterface</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
+  	
+  	<!-- spring start -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-core</artifactId>
+		<exclusions>
+			<exclusion>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-beans</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aop</artifactId>
+		<exclusions>
+			<exclusion>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-expression</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aspects</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<!-- spring end -->
+
+	<!-- spring orm -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-orm</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+	</dependency>
+	
+	 <!-- log4j -->
+    <dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+	</dependency>
+  </dependencies>
+  
+  <build>
+	<finalName>VeasionService</finalName>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+		</plugin>
+	</plugins>
+  </build>
+  
+</project>
