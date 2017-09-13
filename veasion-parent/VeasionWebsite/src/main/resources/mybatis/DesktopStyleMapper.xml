@@ -5,16 +5,59 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="author" property="author" jdbcType="VARCHAR" />
-    <result column="bgimg" property="bgimg" jdbcType="INTEGER" />
+    <result column="bgimg_id" property="bgimgId" jdbcType="INTEGER" />
     <result column="cloumn_width" property="cloumnWidth" jdbcType="INTEGER" />
     <result column="cloumn_height" property="cloumnHeight" jdbcType="INTEGER" />
-    <result column="cloumn_ids" property="cloumnIds" jdbcType="VARCHAR" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, author, bgimg, cloumn_width, cloumn_height, cloumn_ids, create_date, status
+    id, name, author, bgimg_id, cloumn_width, cloumn_height, create_date, status
   </sql>
+  
+  <resultMap id="SelectResultMap" type="cn.veasion.entity.DesktopStyle" extends="BaseResultMap">
+  	<result column="bgimg" property="bgimg" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 分页查询 -->
+  <select id="select" resultMap="SelectResultMap" parameterType="cn.veasion.bean.PageModel">
+  	select d.*, u.url as 'bgimg' from desktop_style d, veasion_url u where d.bgimg_id=u.id 
+  	<include refid="pageModelWhere" />
+  	<if test="orderBy != null">
+  		order by #{orderBy} ${isDesc ? "desc" : "asc"}
+  	</if>
+  	limit #{limitStart}, #{limitEnd}
+  </select>
+  
+  <select id="count" resultType="int" parameterType="cn.veasion.bean.PageModel">
+  	select count(*) from desktop_style d where 1=1 
+  	<include refid="pageModelWhere" />
+  </select>
+  
+  <sql id="pageModelWhere">
+  	<if test="obj != null">
+  		<if test="obj.id != null">
+  			and d.id=#{obj.id}
+  		</if>
+  		<if test="obj.name != null">
+  			and d.name like CONCAT('%',#{obj.name},'%')
+  		</if>
+  		<if test="obj.author != null">
+  			and d.author like CONCAT('%',#{obj.author},'%')
+  		</if>
+  		<if test="obj.bgimgId != null">
+  			and d.bgimg_id=#{obj.bgimgId}
+  		</if>
+  		<if test="obj.status != null">
+  			and d.status=#{obj.status}
+  		</if>
+  	</if>
+  </sql>
+  
+  <select id="selectDesktopCloumnIds" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select dsc.cloumn_id from desktop_style_cloumn dsc where dsc.style_id=#{styleId}
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -27,12 +70,12 @@
   </delete>
   <insert id="insert" parameterType="cn.veasion.entity.DesktopStyle" >
     insert into desktop_style (id, name, author, 
-      bgimg, cloumn_width, cloumn_height, 
-      cloumn_ids, create_date, status
+      bgimg_id, cloumn_width, cloumn_height, 
+      create_date, status
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
-      #{bgimg,jdbcType=INTEGER}, #{cloumnWidth,jdbcType=INTEGER}, #{cloumnHeight,jdbcType=INTEGER}, 
-      #{cloumnIds,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
+      #{bgimgId,jdbcType=INTEGER}, #{cloumnWidth,jdbcType=INTEGER}, #{cloumnHeight,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.veasion.entity.DesktopStyle" >
@@ -47,17 +90,14 @@
       <if test="author != null" >
         author,
       </if>
-      <if test="bgimg != null" >
-        bgimg,
+      <if test="bgimgId != null" >
+        bgimg_id,
       </if>
       <if test="cloumnWidth != null" >
         cloumn_width,
       </if>
       <if test="cloumnHeight != null" >
         cloumn_height,
-      </if>
-      <if test="cloumnIds != null" >
-        cloumn_ids,
       </if>
       <if test="createDate != null" >
         create_date,
@@ -76,17 +116,14 @@
       <if test="author != null" >
         #{author,jdbcType=VARCHAR},
       </if>
-      <if test="bgimg != null" >
-        #{bgimg,jdbcType=INTEGER},
+      <if test="bgimgId != null" >
+        #{bgimgId,jdbcType=INTEGER},
       </if>
       <if test="cloumnWidth != null" >
         #{cloumnWidth,jdbcType=INTEGER},
       </if>
       <if test="cloumnHeight != null" >
         #{cloumnHeight,jdbcType=INTEGER},
-      </if>
-      <if test="cloumnIds != null" >
-        #{cloumnIds,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
@@ -105,17 +142,14 @@
       <if test="author != null" >
         author = #{author,jdbcType=VARCHAR},
       </if>
-      <if test="bgimg != null" >
-        bgimg = #{bgimg,jdbcType=INTEGER},
+      <if test="bgimgId != null" >
+        bgimg_id = #{bgimgId,jdbcType=INTEGER},
       </if>
       <if test="cloumnWidth != null" >
         cloumn_width = #{cloumnWidth,jdbcType=INTEGER},
       </if>
       <if test="cloumnHeight != null" >
         cloumn_height = #{cloumnHeight,jdbcType=INTEGER},
-      </if>
-      <if test="cloumnIds != null" >
-        cloumn_ids = #{cloumnIds,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -130,10 +164,9 @@
     update desktop_style
     set name = #{name,jdbcType=VARCHAR},
       author = #{author,jdbcType=VARCHAR},
-      bgimg = #{bgimg,jdbcType=INTEGER},
+      bgimg_id = #{bgimgId,jdbcType=INTEGER},
       cloumn_width = #{cloumnWidth,jdbcType=INTEGER},
       cloumn_height = #{cloumnHeight,jdbcType=INTEGER},
-      cloumn_ids = #{cloumnIds,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

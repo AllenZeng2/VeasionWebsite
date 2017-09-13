@@ -19,6 +19,8 @@ public interface DesktopCloumnMapper {
 
     int updateByPrimaryKey(DesktopCloumn record);
     
+    List<DesktopCloumn> selectByStyleId(Integer styleId);
+    
     int count(PageModel<DesktopCloumn> pageModel);
     
     List<DesktopCloumn> select(PageModel<DesktopCloumn> pageModel);

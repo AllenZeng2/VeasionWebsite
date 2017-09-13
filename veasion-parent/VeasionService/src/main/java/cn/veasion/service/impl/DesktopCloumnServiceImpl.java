@@ -49,6 +49,11 @@ public class DesktopCloumnServiceImpl implements DesktopCloumnService{
 		return desktopCloumnMapper.updateByPrimaryKey(record);
 	}
 
+	@Override
+	public List<DesktopCloumn> selectByStyleId(Integer styleId) {
+		return desktopCloumnMapper.selectByStyleId(styleId);
+	}
+	
 	public List<DesktopCloumn> select(PageModel<DesktopCloumn> pageModel) {
 		pageModel.setCount(desktopCloumnMapper.count(pageModel));
 		List<DesktopCloumn> list=desktopCloumnMapper.select(pageModel);

@@ -4,15 +4,63 @@
   <resultMap id="BaseResultMap" type="cn.veasion.entity.VeasionMusic" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="url" property="url" jdbcType="INTEGER" />
-    <result column="img" property="img" jdbcType="INTEGER" />
+    <result column="url_id" property="urlId" jdbcType="INTEGER" />
+    <result column="img_id" property="imgId" jdbcType="INTEGER" />
     <result column="singer" property="singer" jdbcType="VARCHAR" />
     <result column="source" property="source" jdbcType="VARCHAR" />
     <result column="click" property="click" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, url, img, singer, source, click
+    id, name, url_id, img_id, singer, source, click
   </sql>
+  
+  <resultMap id="SelectResultMap" type="cn.veasion.entity.VeasionMusic" extends="BaseResultMap">
+  	<result column="url" property="url" jdbcType="VARCHAR" />
+  	<result column="img" property="img" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 分页查询 -->
+  <select id="select" resultMap="SelectResultMap" parameterType="cn.veasion.bean.PageModel">
+  	select m.*, u1.url as 'url', u2.url as 'img' from veasion_music m, veasion_url u1, veasion_url u2 where m.url_id=u1.id and m.img_id=u2.id 
+  	<include refid="pageModelWhere" />
+  	<if test="orderBy != null">
+  		order by #{orderBy} ${isDesc ? "desc" : "asc"}
+  	</if>
+  	limit #{limitStart}, #{limitEnd}
+  </select>
+  
+  <select id="count" resultType="int" parameterType="cn.veasion.bean.PageModel">
+  	select count(*) from veasion_music m where 1=1 
+  	<include refid="pageModelWhere" />
+  </select>
+  
+  <sql id="pageModelWhere">
+  	<if test="obj != null">
+  		<if test="obj.id != null">
+  			and m.id=#{obj.id}
+  		</if>
+  		<if test="obj.name != null">
+  			and m.name like CONCAT('%',#{obj.name},'%')
+  		</if>
+  		<if test="obj.urlId != null">
+  			and m.url_id=#{obj.urlId}
+  		</if>
+  		<if test="obj.imgId != null">
+  			and m.img_id=#{obj.imgId}
+  		</if>
+  		<if test="obj.singer != null">
+  			and m.singer like CONCAT('%',#{obj.singer},'%')
+  		</if>
+  		<if test="obj.source != null">
+  			and m.source like CONCAT('%',#{obj.source},'%')
+  		</if>
+  	</if>
+  </sql>
+  
+  <update id="click" parameterType="java.lang.Integer">
+  	update veasion_music set click=click+1 where id=#{id}
+  </update>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -24,11 +72,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.veasion.entity.VeasionMusic" >
-    insert into veasion_music (id, name, url, 
-      img, singer, source, 
+    insert into veasion_music (id, name, url_id, 
+      img_id, singer, source, 
       click)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=INTEGER}, 
-      #{img,jdbcType=INTEGER}, #{singer,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{urlId,jdbcType=INTEGER}, 
+      #{imgId,jdbcType=INTEGER}, #{singer,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
       #{click,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.veasion.entity.VeasionMusic" >
@@ -40,11 +88,11 @@
       <if test="name != null" >
         name,
       </if>
-      <if test="url != null" >
-        url,
+      <if test="urlId != null" >
+        url_id,
       </if>
-      <if test="img != null" >
-        img,
+      <if test="imgId != null" >
+        img_id,
       </if>
       <if test="singer != null" >
         singer,
@@ -63,11 +111,11 @@
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="url != null" >
-        #{url,jdbcType=INTEGER},
+      <if test="urlId != null" >
+        #{urlId,jdbcType=INTEGER},
       </if>
-      <if test="img != null" >
-        #{img,jdbcType=INTEGER},
+      <if test="imgId != null" >
+        #{imgId,jdbcType=INTEGER},
       </if>
       <if test="singer != null" >
         #{singer,jdbcType=VARCHAR},
@@ -86,11 +134,11 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="url != null" >
-        url = #{url,jdbcType=INTEGER},
+      <if test="urlId != null" >
+        url_id = #{urlId,jdbcType=INTEGER},
       </if>
-      <if test="img != null" >
-        img = #{img,jdbcType=INTEGER},
+      <if test="imgId != null" >
+        img_id = #{imgId,jdbcType=INTEGER},
       </if>
       <if test="singer != null" >
         singer = #{singer,jdbcType=VARCHAR},
@@ -107,8 +155,8 @@
   <update id="updateByPrimaryKey" parameterType="cn.veasion.entity.VeasionMusic" >
     update veasion_music
     set name = #{name,jdbcType=VARCHAR},
-      url = #{url,jdbcType=INTEGER},
-      img = #{img,jdbcType=INTEGER},
+      url_id = #{urlId,jdbcType=INTEGER},
+      img_id = #{imgId,jdbcType=INTEGER},
       singer = #{singer,jdbcType=VARCHAR},
       source = #{source,jdbcType=VARCHAR},
       click = #{click,jdbcType=INTEGER}

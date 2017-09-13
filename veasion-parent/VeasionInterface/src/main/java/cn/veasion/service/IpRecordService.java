@@ -1,0 +1,29 @@
+package cn.veasion.service;
+
+import java.util.List;
+
+import cn.veasion.bean.PageModel;
+import cn.veasion.entity.IpRecord;
+
+/**
+ *  Ip Record Service.
+ *  
+ *  @author zhuowei.luo
+ */
+public interface IpRecordService {
+
+    int insert(IpRecord record);
+
+    int insertSelective(IpRecord record);
+
+    IpRecord selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(IpRecord record);
+
+    int updateByPrimaryKey(IpRecord record);
+    
+    int deleteByPrimaryKey(Integer id);
+    
+    List<IpRecord> select(PageModel<IpRecord> pageModel);
+    
+}

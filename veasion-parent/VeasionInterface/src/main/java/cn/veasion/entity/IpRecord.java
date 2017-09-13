@@ -3,6 +3,7 @@ package cn.veasion.entity;
 import java.util.Date;
 
 public class IpRecord {
+	
     private Integer id;
 
     private String ip;

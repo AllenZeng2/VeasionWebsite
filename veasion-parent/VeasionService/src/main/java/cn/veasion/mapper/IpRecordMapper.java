@@ -1,10 +1,12 @@
 package cn.veasion.mapper;
 
+import java.util.List;
+
+import cn.veasion.bean.PageModel;
 import cn.veasion.entity.IpRecord;
 
 public interface IpRecordMapper {
-    int deleteByPrimaryKey(Integer id);
-
+	
     int insert(IpRecord record);
 
     int insertSelective(IpRecord record);
@@ -14,4 +16,11 @@ public interface IpRecordMapper {
     int updateByPrimaryKeySelective(IpRecord record);
 
     int updateByPrimaryKey(IpRecord record);
+    
+    int deleteByPrimaryKey(Integer id);
+    
+    int count(PageModel<IpRecord> pageModel);
+    
+    List<IpRecord> select(PageModel<IpRecord> pageModel);
+    
 }

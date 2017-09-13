@@ -8,9 +8,40 @@
     <result column="line" property="line" jdbcType="INTEGER" />
     <result column="area" property="area" jdbcType="VARCHAR" />
   </resultMap>
+  
   <sql id="Base_Column_List" >
     id, ip, date, line, area
   </sql>
+  
+  <!-- 分页查询 -->
+  <select id="select" resultMap="BaseResultMap" parameterType="cn.veasion.bean.PageModel">
+  	select ip.* from ip_record ip where 1=1 
+  	<include refid="pageModelWhere" />
+  	<if test="orderBy != null">
+  		order by #{orderBy} ${isDesc ? "desc" : "asc"}
+  	</if>
+  	limit #{limitStart}, #{limitEnd}
+  </select>
+  
+  <select id="count" resultType="int" parameterType="cn.veasion.bean.PageModel">
+  	select count(*) from ip_record ip where 1=1 
+  	<include refid="pageModelWhere" />
+  </select>
+  
+  <sql id="pageModelWhere">
+  	<if test="obj != null">
+  		<if test="obj.id != null">
+  			and ip.id=#{obj.id}
+  		</if>
+  		<if test="obj.ip != null">
+  			and ip.ip like CONCAT('%',#{obj.ip},'%')
+  		</if>
+  		<if test="obj.area != null">
+  			and ip.area like CONCAT('%',#{obj.area},'%')
+  		</if>
+  	</if>
+  </sql>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

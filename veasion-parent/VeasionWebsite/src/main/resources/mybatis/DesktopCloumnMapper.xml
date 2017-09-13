@@ -3,22 +3,28 @@
 <mapper namespace="cn.veasion.mapper.DesktopCloumnMapper" >
   <resultMap id="BaseResultMap" type="cn.veasion.entity.DesktopCloumn" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="url" property="url" jdbcType="INTEGER" />
+    <result column="url_id" property="urlId" jdbcType="INTEGER" />
     <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="icon" property="icon" jdbcType="INTEGER" />
+    <result column="icon_id" property="iconId" jdbcType="INTEGER" />
     <result column="width" property="width" jdbcType="INTEGER" />
     <result column="height" property="height" jdbcType="INTEGER" />
     <result column="show_type" property="showType" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
   </resultMap>
+  
   <sql id="Base_Column_List" >
-    id, url, title, icon, width, height, show_type, status, create_date
+    id, url_id, title, icon_id, width, height, show_type, status, create_date
   </sql>
   
+  <resultMap id="SelectResultMap" type="cn.veasion.entity.DesktopCloumn" extends="BaseResultMap">
+  	<result column="url" property="url" jdbcType="VARCHAR"/>
+  	<result column="icon" property="icon" jdbcType="VARCHAR"/>
+  </resultMap>
+  
   <!-- 分页查询 -->
-  <select id="select" resultMap="BaseResultMap" parameterType="cn.veasion.bean.PageModel">
-  	select d.* from desktop_cloumn d where 1=1 
+  <select id="select" resultMap="SelectResultMap" parameterType="cn.veasion.bean.PageModel">
+  	select d.*, u1.url as 'url', u2.url as 'icon' from desktop_cloumn d, veasion_url u1, veasion_url u2 where d.url_id=u1.id and d.icon_id=u2.id 
   	<include refid="pageModelWhere" />
   	<if test="orderBy != null">
   		order by #{orderBy} ${isDesc ? "desc" : "asc"}
@@ -36,17 +42,27 @@
   		<if test="obj.id != null">
   			and d.id=#{obj.id}
   		</if>
-  		<if test="obj.url != null">
-  			and d.url=#{obj.url}
+  		<if test="obj.urlId != null">
+  			and d.url_id=#{obj.urlId}
   		</if>
   		<if test="obj.title != null">
   			and d.title like CONCAT('%',#{obj.title},'%')
+  		</if>
+  		<if test="obj.showType != null">
+  			and d.show_type=#{obj.showType}
   		</if>
   		<if test="obj.status != null">
   			and d.status=#{obj.status}
   		</if>
   	</if>
   </sql>
+  
+  <select id="selectByStyleId" resultMap="SelectResultMap" parameterType="java.lang.Integer">
+  	select dc.*, u1.url as 'url', u2.url as 'icon' from desktop_cloumn dc, veasion_url u1, veasion_url u2 
+  	where dc.url_id=u1.id and dc.icon_id=u2.id 
+  	and dc.id in (select cloumn_id from desktop_style_cloumn dsc where dsc.style_id=#{styleId})
+  </select>
+  
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -59,12 +75,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.veasion.entity.DesktopCloumn" >
-    insert into desktop_cloumn (id, url, title, 
-      icon, width, height, 
+    insert into desktop_cloumn (id, url_id, title, 
+      icon_id, width, height, 
       show_type, status, create_date
       )
-    values (#{id,jdbcType=INTEGER}, #{url,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
-      #{icon,jdbcType=INTEGER}, #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{urlId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{iconId,jdbcType=INTEGER}, #{width,jdbcType=INTEGER}, #{height,jdbcType=INTEGER}, 
       #{showType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -74,14 +90,14 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="url != null" >
-        url,
+      <if test="urlId != null" >
+        url_id,
       </if>
       <if test="title != null" >
         title,
       </if>
-      <if test="icon != null" >
-        icon,
+      <if test="iconId != null" >
+        icon_id,
       </if>
       <if test="width != null" >
         width,
@@ -103,14 +119,14 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="url != null" >
-        #{url,jdbcType=INTEGER},
+      <if test="urlId != null" >
+        #{urlId,jdbcType=INTEGER},
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="icon != null" >
-        #{icon,jdbcType=INTEGER},
+      <if test="iconId != null" >
+        #{iconId,jdbcType=INTEGER},
       </if>
       <if test="width != null" >
         #{width,jdbcType=INTEGER},
@@ -132,14 +148,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.veasion.entity.DesktopCloumn" >
     update desktop_cloumn
     <set >
-      <if test="url != null" >
-        url = #{url,jdbcType=INTEGER},
+      <if test="urlId != null" >
+        url_id = #{urlId,jdbcType=INTEGER},
       </if>
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="icon != null" >
-        icon = #{icon,jdbcType=INTEGER},
+      <if test="iconId != null" >
+        icon_id = #{iconId,jdbcType=INTEGER},
       </if>
       <if test="width != null" >
         width = #{width,jdbcType=INTEGER},
@@ -161,9 +177,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.veasion.entity.DesktopCloumn" >
     update desktop_cloumn
-    set url = #{url,jdbcType=INTEGER},
+    set url_id = #{urlId,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
-      icon = #{icon,jdbcType=INTEGER},
+      icon_id = #{iconId,jdbcType=INTEGER},
       width = #{width,jdbcType=INTEGER},
       height = #{height,jdbcType=INTEGER},
       show_type = #{showType,jdbcType=INTEGER},

@@ -3,6 +3,28 @@ package cn.veasion.entity;
 import java.util.Date;
 
 public class VeasionUrl {
+	
+	/**
+	 * 访问链接
+	 */
+	public static final int TYPE_URL=1;
+	
+	/**
+	 * 桌面背景URL
+	 */
+	public static final int TYPE_STYLE=2;
+	
+	/**
+	 * ICON图标URL
+	 */
+	public static final int TYPE_ICON=3;
+	
+	/**
+	 * 文件链接
+	 */
+	public static final int TYPE_FILE=4;
+	
+	
     private Integer id;
 
     private String name;

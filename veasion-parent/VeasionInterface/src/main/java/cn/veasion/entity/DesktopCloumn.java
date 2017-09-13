@@ -3,13 +3,39 @@ package cn.veasion.entity;
 import java.util.Date;
 
 public class DesktopCloumn {
+	
+	/**
+	 * 常规
+	 */
+	public static final Integer SHOW_TYPE_ROUTINE=0;
+	
+	/**
+	 * 最大化 
+	 */
+	public static final Integer SHOW_TYPE_MAX=1;
+	
+	/**
+	 * 最小化 
+	 */
+	public static final Integer SHOW_TYPE_MIN=2;
+	
+	/**
+	 * 打开新窗体 
+	 */
+	public static final Integer SHOW_TYPE_NEW=3;
+	
+	/**
+	 * 不准最大化 
+	 */
+	public static final Integer SHOW_TYPE_NOMAX=4;
+	
     private Integer id;
 
-    private Integer url;
+    private Integer urlId;
 
     private String title;
 
-    private Integer icon;
+    private Integer iconId;
 
     private Integer width;
 
@@ -21,6 +47,10 @@ public class DesktopCloumn {
 
     private Date createDate;
 
+    private String url;
+    
+    private String icon;
+    
     public Integer getId() {
         return id;
     }
@@ -29,12 +59,12 @@ public class DesktopCloumn {
         this.id = id;
     }
 
-    public Integer getUrl() {
-        return url;
+    public Integer getUrlId() {
+        return urlId;
     }
 
-    public void setUrl(Integer url) {
-        this.url = url;
+    public void setUrlId(Integer urlId) {
+        this.urlId = urlId;
     }
 
     public String getTitle() {
@@ -45,12 +75,12 @@ public class DesktopCloumn {
         this.title = title == null ? null : title.trim();
     }
 
-    public Integer getIcon() {
-        return icon;
+    public Integer getIconId() {
+        return iconId;
     }
 
-    public void setIcon(Integer icon) {
-        this.icon = icon;
+    public void setIconId(Integer iconId) {
+        this.iconId = iconId;
     }
 
     public Integer getWidth() {
@@ -93,11 +123,27 @@ public class DesktopCloumn {
         this.createDate = createDate;
     }
 
+    public String getIcon() {
+		return icon;
+	}
+    
+    public void setIcon(String icon) {
+		this.icon = icon;
+	}
+    
+    public String getUrl() {
+		return url;
+	}
+    
+    public void setUrl(String url) {
+		this.url = url;
+	}
+
 	@Override
 	public String toString() {
-		return "DesktopCloumn [id=" + id + ", url=" + url + ", title=" + title + ", icon=" + icon + ", width=" + width
-				+ ", height=" + height + ", showType=" + showType + ", status=" + status + ", createDate=" + createDate
-				+ "]";
+		return "DesktopCloumn [id=" + id + ", urlId=" + urlId + ", title=" + title + ", iconId=" + iconId + ", width="
+				+ width + ", height=" + height + ", showType=" + showType + ", status=" + status + ", createDate="
+				+ createDate + ", url=" + url + ", icon=" + icon + "]";
 	}
     
 }

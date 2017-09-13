@@ -12,8 +12,6 @@ import cn.veasion.entity.DesktopCloumn;
  */
 public interface DesktopCloumnService {
 	
-	int deleteByPrimaryKey(Integer id);
-
     int insert(DesktopCloumn record);
 
     int insertSelective(DesktopCloumn record);
@@ -23,6 +21,10 @@ public interface DesktopCloumnService {
     int updateByPrimaryKeySelective(DesktopCloumn record);
 
     int updateByPrimaryKey(DesktopCloumn record);
+    
+    int deleteByPrimaryKey(Integer id);
+    
+    List<DesktopCloumn> selectByStyleId(Integer styleId);
     
     List<DesktopCloumn> select(PageModel<DesktopCloumn> pageModel);
 	

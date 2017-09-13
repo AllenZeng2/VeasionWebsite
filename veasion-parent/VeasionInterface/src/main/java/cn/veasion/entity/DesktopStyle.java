@@ -1,26 +1,43 @@
 package cn.veasion.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class DesktopStyle {
+	
+	/**
+	 * 正在使用
+	 */
+	public static final int STATUS_USE=1;
+	
+	/**
+	 * 停用
+	 */
+	public static final int STATUS_STOP=0;
+	
     private Integer id;
 
     private String name;
 
     private String author;
 
-    private Integer bgimg;
+    private Integer bgimgId;
 
     private Integer cloumnWidth;
 
     private Integer cloumnHeight;
 
-    private String cloumnIds;
-
     private Date createDate;
 
     private Integer status;
 
+    private String bgimg;
+    
+    private List<Integer> desktopCloumnIds;
+    
+    private List<DesktopCloumn> desktopCloumns;
+    
+    
     public Integer getId() {
         return id;
     }
@@ -45,12 +62,12 @@ public class DesktopStyle {
         this.author = author == null ? null : author.trim();
     }
 
-    public Integer getBgimg() {
-        return bgimg;
+    public Integer getBgimgId() {
+        return bgimgId;
     }
 
-    public void setBgimg(Integer bgimg) {
-        this.bgimg = bgimg;
+    public void setBgimgId(Integer bgimgId) {
+        this.bgimgId = bgimgId;
     }
 
     public Integer getCloumnWidth() {
@@ -69,14 +86,6 @@ public class DesktopStyle {
         this.cloumnHeight = cloumnHeight;
     }
 
-    public String getCloumnIds() {
-        return cloumnIds;
-    }
-
-    public void setCloumnIds(String cloumnIds) {
-        this.cloumnIds = cloumnIds == null ? null : cloumnIds.trim();
-    }
-
     public Date getCreateDate() {
         return createDate;
     }
@@ -92,4 +101,37 @@ public class DesktopStyle {
     public void setStatus(Integer status) {
         this.status = status;
     }
+    
+    public String getBgimg() {
+		return bgimg;
+	}
+    
+    public void setBgimg(String bgimg) {
+		this.bgimg = bgimg;
+	}
+    
+    public void setDesktopCloumnIds(List<Integer> desktopCloumnIds) {
+		this.desktopCloumnIds = desktopCloumnIds;
+	}
+    
+    public List<Integer> getDesktopCloumnIds() {
+		return desktopCloumnIds;
+	}
+    
+    public void setDesktopCloumns(List<DesktopCloumn> desktopCloumns) {
+		this.desktopCloumns = desktopCloumns;
+	}
+    
+    public List<DesktopCloumn> getDesktopCloumns() {
+		return desktopCloumns;
+	}
+
+	@Override
+	public String toString() {
+		return "DesktopStyle [id=" + id + ", name=" + name + ", author=" + author + ", bgimgId=" + bgimgId
+				+ ", cloumnWidth=" + cloumnWidth + ", cloumnHeight=" + cloumnHeight + ", createDate=" + createDate
+				+ ", status=" + status + ", bgimg=" + bgimg + ", desktopCloumnIds=" + desktopCloumnIds
+				+ ", desktopCloumns=" + desktopCloumns + "]";
+	}
+    
 }

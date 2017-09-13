@@ -1,19 +1,24 @@
 package cn.veasion.entity;
 
 public class VeasionMusic {
+	
     private Integer id;
 
     private String name;
 
-    private Integer url;
+    private Integer urlId;
 
-    private Integer img;
+    private Integer imgId;
 
     private String singer;
 
     private String source;
 
     private Integer click;
+    
+    private String url;
+    
+    private String img;
 
     public Integer getId() {
         return id;
@@ -31,20 +36,20 @@ public class VeasionMusic {
         this.name = name == null ? null : name.trim();
     }
 
-    public Integer getUrl() {
-        return url;
+    public Integer getUrlId() {
+        return urlId;
     }
 
-    public void setUrl(Integer url) {
-        this.url = url;
+    public void setUrlId(Integer urlId) {
+        this.urlId = urlId;
     }
 
-    public Integer getImg() {
-        return img;
+    public Integer getImgId() {
+        return imgId;
     }
 
-    public void setImg(Integer img) {
-        this.img = img;
+    public void setImgId(Integer imgId) {
+        this.imgId = imgId;
     }
 
     public String getSinger() {
@@ -70,4 +75,20 @@ public class VeasionMusic {
     public void setClick(Integer click) {
         this.click = click;
     }
+    
+    public void setImg(String img) {
+		this.img = img;
+	}
+    
+    public String getImg() {
+		return img;
+	}
+    
+    public void setUrl(String url) {
+		this.url = url;
+	}
+    
+    public String getUrl() {
+		return url;
+	}
 }
