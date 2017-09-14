@@ -38,6 +38,7 @@ insert into desktop_cloumn values ('10', '44', '博客', '2', '0', '0', '3', '1'
 insert into desktop_cloumn values ('11', '38', 'Love', '16', '500', '500', '0', '1', NOW());
 insert into desktop_cloumn values ('12', '45', '人脸识别', '20', '1200', '650', '0', '1', NOW());
 insert into desktop_cloumn values ('13', '46', '文字识别', '10', '1150', '750', '0', '1', NOW());
+insert into desktop_cloumn values ('14', '48', '推荐书籍', '47', '1000', '650', '4', '1', NOW());
 
 -- ----------------------------
 -- Table structure for desktop_style
@@ -109,6 +110,9 @@ insert into `desktop_style_cloumn` values ('30', '3', '8');
 insert into `desktop_style_cloumn` values ('31', '3', '9');
 insert into `desktop_style_cloumn` values ('32', '3', '10');
 insert into `desktop_style_cloumn` values ('33', '3', '12');
+insert into `desktop_style_cloumn` values ('34', '1', '14');
+insert into `desktop_style_cloumn` values ('35', '2', '14');
+insert into `desktop_style_cloumn` values ('36', '3', '14');
 
 -- ----------------------------
 -- Table structure for ip_record
@@ -204,5 +208,7 @@ insert into veasion_url values ('41', 'QQ', 'http://w.qq.com/', '1', NOW());
 insert into veasion_url values ('42', '百度', 'http://www.baidu.com', '1', NOW());
 insert into veasion_url values ('43', '我的Github', 'https://github.com/veasion', '1', NOW());
 insert into veasion_url values ('44', '我的博客', 'http://59.110.241.52/solo', '1', NOW());
-insert into veasion_url values ('45', '真人秀之人脸识别', '/VeasionWebsite/photo/goPhoto', '1', NOW());
-insert into veasion_url values ('46', '文字识别', '/VeasionWebsite/photo/goText', '1', NOW());
+insert into veasion_url values ('45', '真人秀之人脸识别', '/VeasionWebsite/home/face/goPhoto', '1', NOW());
+insert into veasion_url values ('46', '文字识别', '/VeasionWebsite/home/face/goText', '1', NOW());
+insert into veasion_url values ('47', '看书', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/94b04854-646f-4fd0-93b7-e8bbf55c1c2a.png', '3', NOW());
+insert into veasion_url values ('48', '推荐书籍', '/VeasionWebsite/webpage/home/book/book.jsp', '1', NOW());

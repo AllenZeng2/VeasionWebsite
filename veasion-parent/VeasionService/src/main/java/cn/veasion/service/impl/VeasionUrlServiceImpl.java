@@ -52,6 +52,7 @@ public class VeasionUrlServiceImpl implements VeasionUrlService{
 	public List<VeasionUrl> select(PageModel<VeasionUrl> pageModel) {
 		pageModel.setCount(veasionUrlMapper.count(pageModel));
 		List<VeasionUrl> result=veasionUrlMapper.select(pageModel);
+		pageModel.setResult(result);
 		return result;
 	}
 	

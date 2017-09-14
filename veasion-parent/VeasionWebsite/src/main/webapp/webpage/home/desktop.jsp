@@ -4,7 +4,7 @@
 <head>
 <title>Veasion Website</title>
 <link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" />
-<link href="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" /> 
+<link href="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/skins/Aqua/css/ligerui-dialog.css" rel="stylesheet" type="text/css" /> 
 <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/veasion/MouseClick.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/core/base.js" type="text/javascript"></script>
@@ -150,7 +150,7 @@ body, html {width: 100%;height: 100%;}
 	//请求桌面数据
 	$(function() {
 		$.ajax({
-			url : "${pageContext.request.contextPath}/desktop/loadDesktopData",
+			url : "${pageContext.request.contextPath}/home/desktop/loadDesktopData",
 			type : "post",
 			success : function(data) {
 				if(data!=null){
@@ -178,7 +178,7 @@ body, html {width: 100%;height: 100%;}
 				onResize();
 			},
 			error:function(e) {
-				alert('初始化数据错误！');
+				$.ligerDialog.alert('初始化数据错误！');
 			}
 		});
 	});

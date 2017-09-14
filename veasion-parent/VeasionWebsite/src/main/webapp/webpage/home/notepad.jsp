@@ -51,7 +51,7 @@ body{width: 100%;height: 100%;}
 	
 	function validation(value){
 		$.ajax({
-			url:"${pageContext.request.contextPath}/desktop/adminValidation",
+			url:"${pageContext.request.contextPath}/home/desktop/adminValidation",
 			data:{"value":value},
 			type:"post",
 			success:function(data){
@@ -59,7 +59,7 @@ body{width: 100%;height: 100%;}
 				if(data){
 					var icon_id='${param.icon_id}';
 					var obj=window.top.window.getOpenObj(icon_id);
-					var win=window.top.window.f_open("admin", "${pageContext.request.contextPath}/webpage/admin/index.jsp", "后台管理", "${pageContext.request.contextPath}/resources/images/icon_tool.png", 1100, 550, true);
+					var win=window.top.window.f_open("admin", "${pageContext.request.contextPath}/webpage/admin/admin.jsp", "后台管理", "${pageContext.request.contextPath}/resources/images/icon_tool.png", 1100, 550, true);
 					win.show();
 					obj.close();
 				}
