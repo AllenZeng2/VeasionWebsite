@@ -66,20 +66,20 @@ public class StyleController {
 	
 	@RequestMapping("/styleUpdate")
 	public String styleUpdate(DesktopStyle style, HttpServletRequest request){
-		
+		int count=0;
 		if(style.getId()!=null){
 			// 修改
-			desktopStyleService.updateByPrimaryKeySelective(style);
+			count=desktopStyleService.updateByPrimaryKeySelective(style);
 			request.setAttribute("tabid", "updateStyle");
 		}else{
 			// 新增
 			style.setStatus(DesktopStyle.STATUS_STOP);
 			style.setCreateDate(new Date());
-			desktopStyleService.insertSelective(style);
+			count=desktopStyleService.insertSelective(style);
 			request.setAttribute("tabid", "addStyle");
 		}
 		
-		return ResponseBean.SUCCESS;
+		return count > 0 ? ResponseBean.SUCCESS : ResponseBean.FAILURE;
 	}
 	
 	@RequestMapping("/styleSwitchStatus")

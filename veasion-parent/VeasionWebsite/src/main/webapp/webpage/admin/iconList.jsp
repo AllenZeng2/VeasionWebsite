@@ -119,7 +119,7 @@ a{text-decoration:none}
 	<div id="searchbar">
 		标题：<input id="title" type="text" value=""/> 
 		<input id="btnOK" type="button" value="搜索" onclick="search();" />
-		<img class="icon" style="float: right;margin-left: 6px;margin-right: 3px;" onclick="openUrl('upfile_icon','上传图标','${pageContext.request.contextPath}/page/desktop/upFile.jsp?type=icon');" src="${pageContext.request.contextPath}/resources/images/icons/up.gif" title="上传图标" alt="上传图标" />
+		<img class="icon" style="float: right;margin-left: 6px;margin-right: 3px;" onclick="openUrl('upfile_icon','上传图标','${pageContext.request.contextPath}/webpage/admin/upImage.jsp?type=3');" src="${pageContext.request.contextPath}/resources/images/icons/up.gif" title="上传图标" alt="上传图标" />
 		<img class="icon" style="float: right;" onclick="add();" src="${pageContext.request.contextPath}/resources/images/icons/add.gif" title="新增" alt="新增">
 	</div>
 	<div id="maingrid4" style="margin: 0; padding: 0"></div>

@@ -63,7 +63,6 @@ public class OssUtil {
 		ObjectMetadata metdata = new ObjectMetadata();
 		metdata.setContentEncoding("UTF-8");
 		metdata.setContentType(FileUtil.getContentType(ossUploadFile.getOssKey()));
-		PutObjectResult result = null;
 
 		if (object instanceof File) {
 			putObjectRequest = new PutObjectRequest(bucketName, key, (File) object);
@@ -79,11 +78,11 @@ public class OssUtil {
 		if (ossListener != null) {
 			putObjectRequest.<PutObjectRequest> withProgressListener(ossListener);
 		}
-
-		result = ossClient.putObject(putObjectRequest);
-
+		
+		PutObjectResult result = ossClient.putObject(putObjectRequest);
+		
 		//System.out.println(result.getETag());
-
+		
 		return getOssFileUrl(bucketName, key);
 	}
 	

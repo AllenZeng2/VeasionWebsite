@@ -140,7 +140,7 @@ a{text-decoration:none}
 	<div id="searchbar">
 		标题：<input id="name" type="text" value="" /> 
 		<input id="btnOK" type="button" value="搜索" onclick="search();" />
-		<img class="icon" style="float: right;margin-left: 6px;margin-right: 3px;" onclick="openUrl('upfile_bgimg','上传背景','${pageContext.request.contextPath}/webpage/admin/upFile.jsp?type=bgimg');" src="${pageContext.request.contextPath}/resources/images/icons/up.gif" title="上传背景" alt="上传背景" />
+		<img class="icon" style="float: right;margin-left: 6px;margin-right: 3px;" onclick="openUrl('upfile_bgimg','上传背景','${pageContext.request.contextPath}/webpage/admin/upImage.jsp?type=2');" src="${pageContext.request.contextPath}/resources/images/icons/up.gif" title="上传背景" alt="上传背景" />
 		<img class="icon" style="float: right;margin-left: 6px;margin-right: 3px;" onclick="openUrl('home_yl','预览桌面','${pageContext.request.contextPath}/webpage/home/desktop.jsp');" src="${pageContext.request.contextPath}/resources/images/icons/home.gif" title="预览桌面" alt="预览" />
 		<img class="icon" style="float: right;" onclick="add();" src="${pageContext.request.contextPath}/resources/images/icons/add.gif" title="新增" alt="新增" />
 	</div>
