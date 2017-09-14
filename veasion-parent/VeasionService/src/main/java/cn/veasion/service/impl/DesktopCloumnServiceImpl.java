@@ -26,7 +26,11 @@ public class DesktopCloumnServiceImpl implements DesktopCloumnService{
 	private DesktopCloumnMapper desktopCloumnMapper;
 	
 	public int deleteByPrimaryKey(Integer id) {
-		return desktopCloumnMapper.deleteByPrimaryKey(id);
+		int count=desktopCloumnMapper.deleteByPrimaryKey(id);
+		if(count>0){
+			desktopCloumnMapper.deleteStyleCloumn(id);
+		}
+		return count;
 	}
 
 	public int insert(DesktopCloumn record) {

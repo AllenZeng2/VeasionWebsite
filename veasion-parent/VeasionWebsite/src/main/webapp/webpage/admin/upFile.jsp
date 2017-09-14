@@ -24,6 +24,7 @@
     	$("#loading").show();
     	return true;
 	}
+	
 	function imgChange(obj){
 		var file=obj.files[0];
 		var img = new Image();
@@ -73,6 +74,5 @@
 	    </form>
     </c:if>
     <br/>
-    
 </body>
 </html>

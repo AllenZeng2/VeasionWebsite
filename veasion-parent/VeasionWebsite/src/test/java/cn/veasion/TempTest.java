@@ -1,20 +1,16 @@
 package cn.veasion;
 
 import javax.annotation.Resource;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import cn.veasion.bean.PageModel;
 import cn.veasion.service.DesktopCloumnService;
 import cn.veasion.service.DesktopStyleService;
 import cn.veasion.service.IpRecordService;
 import cn.veasion.service.VeasionMusicService;
 import cn.veasion.service.VeasionUrlService;
-import net.sf.json.JSONObject;
 
 /**
  * Temp Test.
@@ -40,7 +36,7 @@ public class TempTest {
 	public void desktop(){
 		try{
 			
-			/*desktopCloumnService.select(new PageModel<>(1, 10));
+			desktopCloumnService.select(new PageModel<>(1, 10));
 			
 			desktopStyleService.select(new PageModel<>(1, 10));
 			
@@ -48,7 +44,7 @@ public class TempTest {
 			
 			veasionMusicService.select(new PageModel<>(1, 10));
 			
-			veasionUrlService.select(new PageModel<>(1, 10));*/
+			veasionUrlService.select(new PageModel<>(1, 10));
 			
 			desktopStyleService.selectForInUse();
 			

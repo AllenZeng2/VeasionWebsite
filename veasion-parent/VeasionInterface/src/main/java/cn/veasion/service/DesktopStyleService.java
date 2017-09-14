@@ -22,6 +22,8 @@ public interface DesktopStyleService {
 
     int updateByPrimaryKey(DesktopStyle record);
     
+    Integer styleSwitchStatus(Integer id);
+    
     int deleteByPrimaryKey(Integer id);
     
     DesktopStyle selectForInUse();

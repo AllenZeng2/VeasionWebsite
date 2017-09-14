@@ -52,13 +52,13 @@
     delete from ip_record
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.veasion.entity.IpRecord" >
+  <insert id="insert" parameterType="cn.veasion.entity.IpRecord" useGeneratedKeys="true" keyProperty="id" >
     insert into ip_record (id, ip, date, 
       line, area)
     values (#{id,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{date,jdbcType=TIMESTAMP}, 
       #{line,jdbcType=INTEGER}, #{area,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.veasion.entity.IpRecord" >
+  <insert id="insertSelective" parameterType="cn.veasion.entity.IpRecord" useGeneratedKeys="true" keyProperty="id" >
     insert into ip_record
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

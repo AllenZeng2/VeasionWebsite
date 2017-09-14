@@ -58,17 +58,36 @@
   	select dsc.cloumn_id from desktop_style_cloumn dsc where dsc.style_id=#{styleId}
   </select>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from desktop_style
-    where id = #{id,jdbcType=INTEGER}
+  <select id="selectByPrimaryKey" resultMap="SelectResultMap" parameterType="java.lang.Integer" >
+    select d.*, u.url as 'bgimg' from desktop_style d, veasion_url u where d.bgimg_id=u.id and d.id=#{id}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from desktop_style
-    where id = #{id,jdbcType=INTEGER}
+  
+  <update id="styleSwitchStatus" parameterType="java.lang.Integer">
+  	update desktop_style set status=0 where status=1;
+  	update desktop_style set status=1 where id=#{id};
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from desktop_style where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.veasion.entity.DesktopStyle" >
+  
+  <delete id="deleteStyleCloumn" parameterType="java.util.Map">
+  	<if test="styleId != null">
+  		<choose>
+  			<when test="cloumnIds != null">
+  				delete from desktop_style_cloumn where style_id = #{styleId} and cloumn_id in
+  				<foreach collection="cloumnIds" open="(" separator="," close=")" item="cid">
+  					${cid}
+  				</foreach>
+  			</when>
+  			<otherwise>
+  				delete from desktop_style_cloumn where style_id = #{styleId}
+  			</otherwise>
+  		</choose>
+  	</if>
+  </delete>
+  
+  <insert id="insert" parameterType="cn.veasion.entity.DesktopStyle" useGeneratedKeys="true" keyProperty="id">
     insert into desktop_style (id, name, author, 
       bgimg_id, cloumn_width, cloumn_height, 
       create_date, status
@@ -76,9 +95,17 @@
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
       #{bgimgId,jdbcType=INTEGER}, #{cloumnWidth,jdbcType=INTEGER}, #{cloumnHeight,jdbcType=INTEGER}, 
       #{createDate,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
-      )
+    )
   </insert>
-  <insert id="insertSelective" parameterType="cn.veasion.entity.DesktopStyle" >
+  
+  <insert id="insertStyleCloumn" parameterType="java.util.Map">
+  	insert into desktop_style_cloumn(style_id, cloumn_id) values
+   	<foreach collection="cloumnIds" separator="," item="cid">
+   		(#{styleId}, #{cid})
+   	</foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="cn.veasion.entity.DesktopStyle" useGeneratedKeys="true" keyProperty="id">
     insert into desktop_style
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

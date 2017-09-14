@@ -51,13 +51,13 @@
     delete from veasion_url
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.veasion.entity.VeasionUrl" >
+  <insert id="insert" parameterType="cn.veasion.entity.VeasionUrl" useGeneratedKeys="true" keyProperty="id" >
     insert into veasion_url (id, name, url, 
       type, create_date)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{type,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="cn.veasion.entity.VeasionUrl" >
+  <insert id="insertSelective" parameterType="cn.veasion.entity.VeasionUrl" useGeneratedKeys="true" keyProperty="id" >
     insert into veasion_url
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

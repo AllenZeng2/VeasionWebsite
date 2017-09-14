@@ -61,17 +61,15 @@
   	update veasion_music set click=click+1 where id=#{id}
   </update>
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from veasion_music
-    where id = #{id,jdbcType=INTEGER}
+  <select id="selectByPrimaryKey" resultMap="SelectResultMap" parameterType="java.lang.Integer" >
+    select m.*, u1.url as 'url', u2.url as 'img' from veasion_music m, veasion_url u1, veasion_url u2 where m.url_id=u1.id and m.img_id=u2.id and m.id=#{id}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from veasion_music
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.veasion.entity.VeasionMusic" >
+  <insert id="insert" parameterType="cn.veasion.entity.VeasionMusic" useGeneratedKeys="true" keyProperty="id" >
     insert into veasion_music (id, name, url_id, 
       img_id, singer, source, 
       click)
@@ -79,7 +77,7 @@
       #{imgId,jdbcType=INTEGER}, #{singer,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, 
       #{click,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="cn.veasion.entity.VeasionMusic" >
+  <insert id="insertSelective" parameterType="cn.veasion.entity.VeasionMusic" useGeneratedKeys="true" keyProperty="id" >
     insert into veasion_music
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

@@ -7,8 +7,6 @@ import cn.veasion.entity.DesktopCloumn;
 
 public interface DesktopCloumnMapper {
 	
-    int deleteByPrimaryKey(Integer id);
-
     int insert(DesktopCloumn record);
 
     int insertSelective(DesktopCloumn record);
@@ -18,6 +16,10 @@ public interface DesktopCloumnMapper {
     int updateByPrimaryKeySelective(DesktopCloumn record);
 
     int updateByPrimaryKey(DesktopCloumn record);
+    
+    int deleteByPrimaryKey(Integer id);
+    
+    int deleteStyleCloumn(Integer cloumnId);
     
     List<DesktopCloumn> selectByStyleId(Integer styleId);
     

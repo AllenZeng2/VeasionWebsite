@@ -17,6 +17,16 @@ public class ResponseBean<T> {
 	 */
 	public static final Integer STATUS_FAILURE=-1;
 	
+	/**
+	 * 成功页面. 
+	 */
+	public static final String SUCCESS="status/success";
+	
+	/**
+	 * 失败页面. 
+	 */
+	public static final String FAILURE="status/failure";
+	
 	private int status;
 	
 	private String message;

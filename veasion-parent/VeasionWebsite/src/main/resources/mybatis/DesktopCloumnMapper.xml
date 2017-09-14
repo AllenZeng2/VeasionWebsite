@@ -64,17 +64,19 @@
   </select>
   
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from desktop_cloumn
-    where id = #{id,jdbcType=INTEGER}
+  <select id="selectByPrimaryKey" resultMap="SelectResultMap" parameterType="java.lang.Integer" >
+    select d.*, u1.url as 'url', u2.url as 'icon' from desktop_cloumn d, veasion_url u1, veasion_url u2 where d.url_id=u1.id and d.icon_id=u2.id and d.id=#{id}
   </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from desktop_cloumn
-    where id = #{id,jdbcType=INTEGER}
+    delete from desktop_cloumn where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.veasion.entity.DesktopCloumn" >
+  
+  <delete id="deleteStyleCloumn" parameterType="java.lang.Integer">
+  	delete from desktop_style_cloumn where cloumn_id = #{cloumnId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="cn.veasion.entity.DesktopCloumn" useGeneratedKeys="true" keyProperty="id">
     insert into desktop_cloumn (id, url_id, title, 
       icon_id, width, height, 
       show_type, status, create_date
@@ -84,7 +86,7 @@
       #{showType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.veasion.entity.DesktopCloumn" >
+  <insert id="insertSelective" parameterType="cn.veasion.entity.DesktopCloumn" useGeneratedKeys="true" keyProperty="id">
     insert into desktop_cloumn
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

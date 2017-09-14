@@ -47,6 +47,13 @@ public class VeasionUrlServiceImpl implements VeasionUrlService{
 	public int deleteByPrimaryKey(Integer id) {
 		return veasionUrlMapper.deleteByPrimaryKey(id);
 	}
+	
+	@Override
+	public List<VeasionUrl> selectByType(Integer type) {
+		VeasionUrl url=new VeasionUrl();
+		url.setType(type);
+		return veasionUrlMapper.select(new PageModel<VeasionUrl>(url, 1, 50));
+	}
 
 	@Override
 	public List<VeasionUrl> select(PageModel<VeasionUrl> pageModel) {

@@ -13,7 +13,7 @@ import cn.veasion.service.UserService;
 import cn.veasion.util.Constant;
 
 /**
- * Desktop.
+ * Desktop Controller.
  * 
  * @author zhuowei.luo
  */

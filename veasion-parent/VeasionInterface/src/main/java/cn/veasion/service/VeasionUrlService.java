@@ -24,6 +24,7 @@ public interface VeasionUrlService {
     
     int deleteByPrimaryKey(Integer id);
     
+    List<VeasionUrl> selectByType(Integer type);
+    
     List<VeasionUrl> select(PageModel<VeasionUrl> pageModel);
-	
 }
