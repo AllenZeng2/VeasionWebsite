@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ICON管理</title>
+<title>Dictionary管理</title>
 <link rel="Shortcut Icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico">
 <link href="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
 <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
@@ -11,15 +11,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/plugins/ligerGrid.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
 <style>
-td,th{width:100px; height:40px;}
-div img{width: 36px; height: 36px;}
 a{text-decoration:none}
-
-.icon {
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
 </style>
 <script type="text/javascript">
 
@@ -31,20 +23,20 @@ a{text-decoration:none}
 	
 	function loadData(parms){
 		grid = $("#maingrid4").ligerGrid({
-			url:"${pageContext.request.contextPath}/admin/url/urlSearch",
+			url:"${pageContext.request.contextPath}/admin/dictionary/dictionarySearch",
 			columns : [ {
 				display : 'id',
 				name : 'id',
 				width : 35
 			}, {
-				display : '名称',
-				name : 'name'
-			}, {
-				display : 'url',
-				name : 'url'
-			}, {
 				display : '类型',
 				name : 'type'
+			}, {
+				display : '值',
+				name : 'value'
+			}, {
+				display : '状态',
+				name : 'status'
 			}, {
 				display : '创建时间',
 				name : 'createDate',
@@ -61,21 +53,21 @@ a{text-decoration:none}
 			height : '100%',
 			rowAttrRender: function (rowdata, rowid){
 				var id=rowdata.id;
-				var url=rowdata.url;
-				var name=rowdata.name;
+				var value=rowdata.value;
 				var type=rowdata.type;
+				var status=rowdata.status;
 				var date=rowdata.createDate;
-				rowdata.name="<span title='"+name+"'>"+name+"</span>";
-				rowdata.createDate="<span title='"+date+"'>"+date+"</span>";
-				if(type==2 || type==3){
-					rowdata.type=type==2 ? "桌面背景" : "图标";
-					rowdata.url="<img src='"+rowdata.url+"'/>";
-				}else if(type==1 || type==4){
-					rowdata.type=type==1 ? "访问链接" : "文件链接";
-					rowdata.url="<a href=\"javascript:openUrl('"+id+"','"+name+"','"+url+"');\" title='"+url+"'>"+url+"</a>";
+				var typeName="未命名";
+				switch(type){
+					case 1:typeName="作者名称";break;
+					case 2:typeName="Admin暗码";break;
+					case 3:typeName="帅气赞美";break;
 				}
-				rowdata.edit="<a href=\"javascript:update('"+id+"','"+name+"');\">修改</a>";
-				rowdata.del="<a href=\"javascript:del('"+id+"','"+name+"');\" style='color:red;'>删除</a>";
+				rowdata.type=typeName;
+				rowdata.status=status==1 ? "正常" : "不可用";
+				rowdata.createDate="<span title='"+date+"'>"+date+"</span>";
+				rowdata.edit="<a href=\"javascript:update('"+id+"','"+value+"');\">修改</a>";
+				rowdata.del="<a href=\"javascript:del('"+id+"','"+value+"');\" style='color:red;'>删除</a>";
 				return null;
 			},
 			parms : parms
@@ -83,22 +75,18 @@ a{text-decoration:none}
 		$("#pageloading").hide();
 	}
 	
-	function openUrl(tabid, name, url){
-		window.parent.window.f_addTab(tabid, name, url);
-	}
-	
 	function add(){
-		window.parent.window.f_addTab("addUrl", "新增Url", "${pageContext.request.contextPath}/admin/url/goUrlModify");
+		window.parent.window.f_addTab("addDictionary", "新增Dictionary", "${pageContext.request.contextPath}/admin/dictionary/goDictionaryModify");
 	}
 	
-	function update(id, name){
-		window.parent.window.f_addTab("updateUrl", name, "${pageContext.request.contextPath}/admin/url/goUrlModify?id="+id);
+	function update(id, value){
+		window.parent.window.f_addTab("updateDictionary", value, "${pageContext.request.contextPath}/admin/dictionary/goDictionaryModify?id="+id);
 	}
 	
-	function del(id, name){
-		if(confirm("确定要删除“"+name+"”?")){
+	function del(id, value){
+		if(confirm("确定要删除“"+value+"”?")){
 			$.ajax({
-				url:"${pageContext.request.contextPath}/admin/url/urlDelete?id="+id,
+				url:"${pageContext.request.contextPath}/admin/dictionary/dictionaryDelete?id="+id,
 				type:"post",
 				success:function(data){
 					if(data!=null && data>0){
@@ -119,21 +107,20 @@ a{text-decoration:none}
 	
 	//查询
 	function search() {
-		loadData({"name":$("#name").val(), "type":$("#type").val()});
+		loadData({"value":$("#value").val(), "type":$("#type").val()});
 	}
 	
 </script>
 </head>
 <body style="padding: 6px; overflow: hidden;">
 	<div id="searchbar">
-		名称：<input id="name" type="text" value=""/>
+		值：<input id="value" type="text" value=""/>
 		类型：
 		<select id="type">
 			<option value="">全部</option>
-			<option value="1">访问链接</option>
-			<option value="2">桌面背景</option>
-			<option value="3">图标</option>
-			<option value="4">文件链接</option>
+			<option value="3">帅气赞美</option>
+			<option value="1">作者名称</option>
+			<option value="2">Admin暗码</option>
 		</select>
 		<input id="btnOK" type="button" value="搜索" onclick="search();" />
 		<img class="icon" style="float: right;" onclick="add();" src="${pageContext.request.contextPath}/resources/images/icons/add.gif" title="新增" alt="新增">

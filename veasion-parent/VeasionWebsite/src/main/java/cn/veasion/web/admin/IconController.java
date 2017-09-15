@@ -63,8 +63,8 @@ public class IconController {
 		return "admin/iconModify";
 	}
 	
-	@RequestMapping("/iconUpdate")
-	public String iconUpdate(DesktopCloumn cloumn, HttpServletRequest request){
+	@RequestMapping("/iconModify")
+	public String iconModify(DesktopCloumn cloumn, HttpServletRequest request){
 		if(cloumn==null){
 			request.setAttribute("message", "参数不能为空！");
 			return ResponseBean.FAILURE;

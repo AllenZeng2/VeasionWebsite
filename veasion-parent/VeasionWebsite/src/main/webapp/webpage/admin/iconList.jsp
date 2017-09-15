@@ -101,11 +101,11 @@ a{text-decoration:none}
 		window.parent.window.f_addTab("addIcon", "新增Icon", "${pageContext.request.contextPath}/admin/icon/goIconModify");
 	}
 	
-	function update(id,title){
+	function update(id, title){
 		window.parent.window.f_addTab("updateIcon", title, "${pageContext.request.contextPath}/admin/icon/goIconModify?id="+id);
 	}
 	
-	function del(id,title){
+	function del(id, title){
 		if(confirm("确定要删除“"+title+"”?")){
 			$.ajax({
 				url:"${pageContext.request.contextPath}/admin/icon/iconDelete?id="+id,

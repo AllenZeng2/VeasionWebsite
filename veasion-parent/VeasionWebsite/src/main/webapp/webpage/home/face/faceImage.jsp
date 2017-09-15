@@ -44,7 +44,7 @@
 	</div>
 	<div class="div13" style="text-align: center;">
 		<img alt="照片" src="" id="jtImg" class="jtImg" title="点击下载照片" onclick="downImg();"/>
-		<img id="loading" src="${pageContext.request.contextPath}/resources/images/images/loading.gif" style="display: none;margin-top: 10px;" alt="正在评估..." title="正在评估..." />
+		<img id="loading" src="${pageContext.request.contextPath}/resources/images/loading.gif" style="display: none;margin-top: 10px;" alt="正在评估..." title="正在评估..." />
 		<div style="margin-top: 30px;">
 			<button id="pictures">拍照</button>
 			<button style="margin-left: 5px;" onclick="upImgFile();" title="现在是看脸的时代，快来让我帮你评估一下长相吧~">长相评估</button>
@@ -56,7 +56,7 @@
 	var video = document.getElementById('video');
 	var canvas = document.getElementById('canvas');
 	var ctx = canvas.getContext('2d');
-	var jtBase64Url;//保存截图的base64编码url
+	var base64Url;//保存截图的base64编码url
 
 	var error=function(){
 		// 打开视频异常出现的回调
@@ -89,15 +89,15 @@
 			canvas.width = width;
 			canvas.height = height;
 			ctx.drawImage(video, 0, 0, width, height);
-			jtBase64Url = canvas.toDataURL('image/png');
-			$("#jtImg").attr("src", jtBase64Url);
+			base64Url = canvas.toDataURL('image/png');
+			$("#jtImg").attr("src", base64Url);
 			$("#jtImg").show();
 		});
 	}
 	
 	// 下载截图
 	function downImg() {
-		var downloadA = $("<a></a>").attr("href", jtBase64Url).attr("download",
+		var downloadA = $("<a></a>").attr("href", base64Url).attr("download",
 				"Veasion" + new Date().getTime() + ".jpg");
 		downloadA[0].click();
 	}
@@ -106,7 +106,7 @@
 	var faceing = false;
 	
 	function upImgFile() {
-		if (jtBase64Url == null || jtBase64Url == "") {
+		if (base64Url == null || base64Url == "") {
 			$.ligerDialog.waitting('请先拍照哦~');
 			setTimeout(function() {
 				$.ligerDialog.closeWaitting();
@@ -125,7 +125,7 @@
 		
 		$.ajax({
 			url : "${pageContext.request.contextPath}/home/face/upImgFile",
-			data : { "jtBase64Url" : jtBase64Url },
+			data : { "base64Url" : base64Url },
 			type : "post",
 			success : function(data) {
 				faceing = false;

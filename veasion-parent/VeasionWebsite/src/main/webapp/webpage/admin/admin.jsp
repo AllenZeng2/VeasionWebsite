@@ -32,16 +32,20 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 		isexpand : false,
 		children : [ 
 			{
-				text : "style管理",
+				text : "样式管理",
 				url : "${pageContext.request.contextPath}/webpage/admin/styleList.jsp"
 			},
 			{
-				text : "icon管理",
+				text : "图标管理",
 				url : "${pageContext.request.contextPath}/webpage/admin/iconList.jsp"
 			},
 			{
-				text : "url管理",
+				text : "链接管理",
 				url : "${pageContext.request.contextPath}/webpage/admin/urlList.jsp"
+			},
+			{
+				text : "字典管理",
+				url : "${pageContext.request.contextPath}/webpage/admin/dictionaryList.jsp"
 			}
 		]
 	} ];
@@ -169,13 +173,17 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 	
 	function exit(){
 		$.ajax({
-			url:"${pageContext.request.contextPath}/admin/exit.vea",
+			url:"${pageContext.request.contextPath}/home/desktop/exitLogin",
 			type:"post",
-			success:function(data){}
+			success:function(data){ 
+				var icon_id='${param.icon_id}';
+				var obj=window.top.window.getOpenObj(icon_id);
+				obj.close();
+			},
+			error:function(e){
+				alert("发生错误！");
+			}
 		});
-		var icon_id='${param.icon_id}';
-		var obj=window.top.window.getOpenObj(icon_id);
-		obj.close();
 	}
 </script>
 </head>

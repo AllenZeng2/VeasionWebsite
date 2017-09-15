@@ -36,6 +36,9 @@
   		<if test="obj.type != null">
   			and d.type=#{obj.type}
   		</if>
+  		<if test="obj.value != null">
+  			and d.value like CONCAT('%',#{obj.value},'%')
+  		</if>
   		<if test="obj.status != null">
   			and d.status=#{obj.status}
   		</if>

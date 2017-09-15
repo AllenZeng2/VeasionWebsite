@@ -32,7 +32,7 @@
 <body>
 <br/>
 <div style="text-align: center;">
-	<form action="${pageContext.request.contextPath}/admin/icon/iconUpdate" method="post" onsubmit="return check();">
+	<form action="${pageContext.request.contextPath}/admin/icon/iconModify" method="post" onsubmit="return check();">
 	<c:if test="${icon !=null }">
 		<input type="hidden" name="id" value="${icon.id }"/>
 	</c:if>

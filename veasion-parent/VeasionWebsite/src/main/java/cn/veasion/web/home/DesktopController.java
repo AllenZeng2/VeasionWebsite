@@ -41,13 +41,19 @@ public class DesktopController {
 	@RequestMapping("/adminValidation")
 	@ResponseBody
 	public Boolean adminValidation(String value, HttpServletRequest request){
-		System.out.println(value);
 		if(userService.login(value)){
 			request.getSession().setAttribute(Constant.ADMIN_SESSION, Constant.ADMIN_SESSION);
 			return true;
 		}else{
 			return false;
 		}
+	}
+	
+	@RequestMapping("/exitLogin")
+	@ResponseBody
+	public Boolean exitLogin(HttpServletRequest request){
+		request.removeAttribute(Constant.ADMIN_SESSION);
+		return true;
 	}
 	
 }

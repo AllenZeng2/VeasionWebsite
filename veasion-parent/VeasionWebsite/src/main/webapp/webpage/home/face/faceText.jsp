@@ -41,7 +41,7 @@
 				setTimeout(function() {
 					$.ligerDialog.closeWaitting();
 				}, 1000);
-				$("#textHtml").html(data.object);
+				$("#textHtml").html(data);
 			},
 			error:function(e){
 				startFace=false;

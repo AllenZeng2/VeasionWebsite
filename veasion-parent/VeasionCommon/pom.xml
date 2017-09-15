@@ -23,6 +23,12 @@
 		<scope>provided</scope>
 	</dependency>
 	
+	<!-- spring mvc -->	
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-webmvc</artifactId>
+	</dependency>
+	
 	<!--commons -->
 	<dependency>
 		<groupId>commons-lang</groupId>

@@ -75,7 +75,7 @@ a{text-decoration: none;}
 <body>
 <br/>
 <div>
-	<form action="${pageContext.request.contextPath}/admin/style/styleUpdate" method="post" onsubmit="return check();">
+	<form action="${pageContext.request.contextPath}/admin/style/styleModify" method="post" onsubmit="return check();">
 		<c:if test="${desktopStyle != null}">
 			<input type="hidden" name="id" value="${desktopStyle.id }"/>
 		</c:if>

@@ -11,8 +11,6 @@ public class Constant {
 	
 	public static final String ADMIN_SESSION="adminUser";
 	
-	public static final String ADMIN_CODE="A.java";
-	
 	public static final String SaveFaceImg="SaveFaceImg";
 	
 	public static final String FaceCompareAuthor="FaceCompareAuthor";

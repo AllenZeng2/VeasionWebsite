@@ -43,14 +43,16 @@ public class FaceController {
 	@Autowired
 	private DictionaryService dictionaryService;
 	
-	/**上传截图*/
+	/**
+	 * 人脸识别
+	 */
 	@RequestMapping("/upImgFile")
 	@ResponseBody
-	public Map<String, Object> upImgFile(String jtBase64Url, HttpServletRequest req){
-		String []str=ImageUtil.base64Type(jtBase64Url);
+	public Map<String, Object> upImgFile(String base64Url, HttpServletRequest req){
+		String []str=ImageUtil.base64Type(base64Url);
 		String type=str[0];
 		String base64=str[1];
-		jtBase64Url=null;str=null;
+		base64Url=null;str=null;
 		boolean isSuccess=true;
 		// 保存图像
 		this.upFileToOss(base64, type);
@@ -74,6 +76,30 @@ public class FaceController {
 			respMap.put("message", "检测失败！");
 		}
 		return respMap;
+	}
+	
+	/**
+	 * 文字识别
+	 */
+	@RequestMapping("/textFile")
+	@ResponseBody
+	public String textFile(String base64Url, HttpServletRequest req) {
+		try {
+			base64Url=ImageUtil.base64Type(base64Url)[1];
+			if(VeaUtil.isNullEmpty(base64Url)){
+				return "请选择图片！";
+			}
+			ImageOperate image=new ImageOperate(FaceUtil.getFaceKey(), FaceUtil.getFaceSecret());
+			FaceResponse resp=image.textRecognition(null, null, base64Url);
+			ImageTextBean bean=new ImageTextBean(resp);
+			if (bean.getStatus() != 200)
+				return bean.getMessage();
+			else
+				return bean.getTextHtml();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "识别发生异常！";
+		}
 	}
 	
 	/**异步保存图片到Oss*/
@@ -161,8 +187,8 @@ public class FaceController {
 			return false;
 		}
 		try {
-			Object token = req.getSession().getServletContext().getAttribute("faceToken");
-			String authoFaceToken = token != null ? token.toString() : null;
+			Object autoToken = req.getSession().getServletContext().getAttribute("faceToken");
+			String authoFaceToken = autoToken != null ? autoToken.toString() : null;
 			CommonOperate comm=new CommonOperate(FaceUtil.getFaceKey(), FaceUtil.getFaceSecret(), false);
 			FaceResponse faceResponse=comm.compare(faceToken, null, null, null, authoFaceToken, authoFaceToken==null?FaceUtil.getMyFaceImg():null, null, null);
 			if(faceResponse.getStatus()==200){
@@ -182,27 +208,6 @@ public class FaceController {
 			e.printStackTrace();
 		}
 		return false;
-	}
-	
-	/**上传图片进行文字识别*/
-	@RequestMapping("/textFile")
-	@ResponseBody
-	public String textFile(String base64Url, HttpServletRequest req) {
-		try {
-			if(VeaUtil.isNullEmpty(base64Url)){
-				return "请选择图片！";
-			}
-			ImageOperate image=new ImageOperate(FaceUtil.getFaceKey(), FaceUtil.getFaceSecret());
-			FaceResponse resp=image.textRecognition(null, null, base64Url);
-			ImageTextBean bean=new ImageTextBean(resp);
-			if (bean.getStatus() != 200)
-				return bean.getMessage();
-			else
-				return bean.getTextHtml();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "识别发生异常！";
-		}
 	}
 	
 }

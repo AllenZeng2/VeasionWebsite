@@ -210,8 +210,9 @@ insert into veasion_url values ('43', '我的Github', 'https://github.com/veasio
 insert into veasion_url values ('44', '我的博客', 'http://59.110.241.52/solo', '1', NOW());
 insert into veasion_url values ('45', '真人秀之人脸识别', '/VeasionWebsite/webpage/home/face/faceImage.jsp', '1', NOW());
 insert into veasion_url values ('46', '文字识别', '/VeasionWebsite/webpage/home/face/faceText.jsp', '1', NOW());
-insert into veasion_url values ('47', '看书', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/94b04854-646f-4fd0-93b7-e8bbf55c1c2a.png', '3', NOW());
+insert into veasion_url values ('47', '看书1', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/94b04854-646f-4fd0-93b7-e8bbf55c1c2a.png', '3', NOW());
 insert into veasion_url values ('48', '推荐书籍', '/VeasionWebsite/webpage/home/book/book.jsp', '1', NOW());
+insert into veasion_url values ('49', '看书2', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/eff4f7af-01e1-43bd-b51a-58de513b4a2b.png', '3', NOW());
 
 -- ----------------------------
 -- Table structure for dictionary

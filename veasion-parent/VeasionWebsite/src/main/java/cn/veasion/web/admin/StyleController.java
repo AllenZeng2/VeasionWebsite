@@ -64,8 +64,8 @@ public class StyleController {
 		return "admin/styleModify";
 	}
 	
-	@RequestMapping("/styleUpdate")
-	public String styleUpdate(DesktopStyle style, HttpServletRequest request){
+	@RequestMapping("/styleModify")
+	public String styleModify(DesktopStyle style, HttpServletRequest request){
 		if(style==null){
 			request.setAttribute("message", "参数错误！");
 			return ResponseBean.FAILURE;

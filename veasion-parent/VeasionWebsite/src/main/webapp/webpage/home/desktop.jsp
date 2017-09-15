@@ -4,7 +4,7 @@
 <head>
 <title>Veasion Website</title>
 <link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" />
-<link href="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/skins/Aqua/css/ligerui-dialog.css" rel="stylesheet" type="text/css" /> 
+<link href="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
 <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/veasion/MouseClick.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/core/base.js" type="text/javascript"></script>
