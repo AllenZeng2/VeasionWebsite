@@ -5,16 +5,6 @@ import java.util.List;
 
 public class DesktopStyle {
 	
-	/**
-	 * 正在使用
-	 */
-	public static final int STATUS_USE=1;
-	
-	/**
-	 * 停用
-	 */
-	public static final int STATUS_STOP=0;
-	
     private Integer id;
 
     private String name;

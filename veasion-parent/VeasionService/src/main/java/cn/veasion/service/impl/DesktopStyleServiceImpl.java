@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.veasion.bean.EntityBean;
 import cn.veasion.bean.PageModel;
 import cn.veasion.entity.DesktopCloumn;
 import cn.veasion.entity.DesktopStyle;
@@ -131,7 +132,7 @@ public class DesktopStyleServiceImpl implements DesktopStyleService{
 	public DesktopStyle selectForInUse() {
 		PageModel<DesktopStyle> pageModel=new PageModel<>(1, 1);
 		DesktopStyle style=new DesktopStyle();
-		style.setStatus(DesktopStyle.STATUS_USE);
+		style.setStatus(EntityBean.STATUS_USE);
 		pageModel.setObj(style);
 		List<DesktopStyle> styles=desktopStyleMapper.select(pageModel);
 		if(!VeaUtil.isNullEmpty(styles)){

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.veasion.bean.EntityBean;
 import cn.veasion.bean.PageModel;
 import cn.veasion.bean.RequestGrid;
 import cn.veasion.bean.ResponseBean;
@@ -76,7 +77,7 @@ public class StyleController {
 			request.setAttribute("tabid", "updateStyle");
 		}else{
 			// 新增
-			style.setStatus(DesktopStyle.STATUS_STOP);
+			style.setStatus(EntityBean.STATUS_STOP);
 			style.setCreateDate(new Date());
 			count=desktopStyleService.insertSelective(style);
 			request.setAttribute("tabid", "addStyle");

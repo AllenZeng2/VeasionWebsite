@@ -5,12 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>文字识别</title>
-<link rel="Shortcut Icon" href="${pageContext.request.contextPath}/favicon.ico">
-<link href="${pageContext.request.contextPath}/jquery/ligerUI/skins/Aqua/css/ligerui-dialog.css" rel="stylesheet" type="text/css"/>
-<script src="${pageContext.request.contextPath}/jquery/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/jquery/ligerUI/js/core/base.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/jquery/ligerUI/js/plugins/ligerDrag.js" type="text/javascript"></script> 
-<script src="${pageContext.request.contextPath}/jquery/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
+<link rel="Shortcut Icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico">
+<link href="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/skins/Aqua/css/ligerui-dialog.css" rel="stylesheet" type="text/css"/>
+<script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/core/base.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/plugins/ligerDrag.js" type="text/javascript"></script> 
+<script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
 <style type="text/css">
 </style>
 <script type="text/javascript">
@@ -30,7 +30,7 @@
     	$("#loading").show();
     	startFace=true;
     	$.ajax({
-			url:"${pageContext.request.contextPath}/photo/text/textFile.vea",
+			url:"${pageContext.request.contextPath}/home/face/textFile",
 			data:{"base64Url":urlBase64},
 			type:"post",
 			//dataType:"json",
@@ -53,6 +53,7 @@
 			}
     	});
 	}
+	
 	function getBase64Image(img) {
         var canvas = document.createElement("canvas");
         canvas.width = img.width;
@@ -103,7 +104,7 @@
 	<div style="float: left;width: 350px;min-height: 600px;border: 1px solid #666;margin-left: 20px;text-align: center;">
 		<h3>识别结果</h3>
 		<div id="textHtml" style="margin-top: 10px;min-width: 200px;min-height: 300px;border: 1px solid #666;" contenteditable="true"></div>
-		<img alt="正在识别..." src="${pageContext.request.contextPath}/images/loading.gif" style="display: none;margin-top: 10px;" id="loading"/>
+		<img alt="正在识别..." src="${pageContext.request.contextPath}/resources/images/loading.gif" style="display: none;margin-top: 10px;" id="loading"/>
 		<br/>
 		<button onclick="faceImage();" style="margin-top: 10px;">开始识别</button>
 	</div>

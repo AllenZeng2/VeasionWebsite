@@ -16,8 +16,8 @@ create table desktop_cloumn (
   icon_id int(11) not null,
   width int(11) default null,
   height int(11) default null,
-  show_type int(11) default null,
-  status int(11) default null,
+  show_type int(11) default '0',
+  status int(11) default '1',
   create_date datetime default null,
   primary key (id)
 );
@@ -52,7 +52,7 @@ create table desktop_style (
   cloumn_width int(11) default null,
   cloumn_height int(11) default null,
   create_date datetime default null,
-  status int(11) default '0',
+  status int(11) default '1',
   primary key (id)
 );
 
@@ -159,7 +159,7 @@ create table veasion_url (
   name varchar(50) default null,
   url varchar(300) not null,
   type int(11) not null,
-  create_date datetime default null,
+  create_date datetime,
   primary key (id)
 );
 
@@ -208,7 +208,43 @@ insert into veasion_url values ('41', 'QQ', 'http://w.qq.com/', '1', NOW());
 insert into veasion_url values ('42', '百度', 'http://www.baidu.com', '1', NOW());
 insert into veasion_url values ('43', '我的Github', 'https://github.com/veasion', '1', NOW());
 insert into veasion_url values ('44', '我的博客', 'http://59.110.241.52/solo', '1', NOW());
-insert into veasion_url values ('45', '真人秀之人脸识别', '/VeasionWebsite/home/face/goPhoto', '1', NOW());
-insert into veasion_url values ('46', '文字识别', '/VeasionWebsite/home/face/goText', '1', NOW());
+insert into veasion_url values ('45', '真人秀之人脸识别', '/VeasionWebsite/webpage/home/face/faceImage.jsp', '1', NOW());
+insert into veasion_url values ('46', '文字识别', '/VeasionWebsite/webpage/home/face/faceText.jsp', '1', NOW());
 insert into veasion_url values ('47', '看书', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/94b04854-646f-4fd0-93b7-e8bbf55c1c2a.png', '3', NOW());
 insert into veasion_url values ('48', '推荐书籍', '/VeasionWebsite/webpage/home/book/book.jsp', '1', NOW());
+
+-- ----------------------------
+-- Table structure for dictionary
+-- ----------------------------
+drop table if exists dictionary;
+create table dictionary (
+  id int(11) not null AUTO_INCREMENT,
+  type int(11) not null,
+  value varchar(200) not null,
+  status int(11) default '1',
+  create_date datetime,
+  primary key (id)
+);
+
+-- ----------------------------
+-- Records of dictionary
+-- ----------------------------
+INSERT INTO `dictionary` VALUES (null, '1', 'Veasion', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '2', 'Veasion', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '经检测此人帅到爆表！', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '检测发生系统故障！可能是他太帅~', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '他的是我的工程师Veasion', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '帅气值：100%', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '这么帅，你可以靠脸吃饭了!', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '你是我见过最帅的一个', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '颜值爆表！！！', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '小伙子很有前途！', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '你不得了！,颜值爆表', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '魅力已超上线，系统故障！', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '此人人值超凡！', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '他的名字叫Veasion，我的工程师爸爸！', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '卓越又伟大用来形容你刚刚好！', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '小伙是块上等好料', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '我能猜到你是我的工程师爸爸！', '1', NOW());
+
+

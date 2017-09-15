@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.veasion.bean.EntityBean;
 import cn.veasion.bean.PageModel;
 import cn.veasion.bean.RequestGrid;
 import cn.veasion.bean.ResponseBean;
@@ -76,7 +77,7 @@ public class IconController {
 		}else{
 			// 添加
 			cloumn.setCreateDate(new Date());
-			cloumn.setStatus(DesktopCloumn.STATUS_USE);
+			cloumn.setStatus(EntityBean.STATUS_USE);
 			count=desktopCloumnService.insertSelective(cloumn);
 			request.setAttribute("tabid", "addIcon");
 		}

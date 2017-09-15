@@ -5,14 +5,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>人脸识别</title>
-<link rel="Shortcut Icon" href="${pageContext.request.contextPath}/favicon.ico">
-<link href="${pageContext.request.contextPath}/jquery/ligerUI/skins/Aqua/css/ligerui-dialog.css" rel="stylesheet" type="text/css"/>
-<script src="${pageContext.request.contextPath}/jquery/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/jquery/ligerUI/js/core/base.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/jquery/ligerUI/js/plugins/ligerDrag.js" type="text/javascript"></script> 
-<script src="${pageContext.request.contextPath}/jquery/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
+<link rel="Shortcut Icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico">
+<link href="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/skins/Aqua/css/ligerui-dialog.css" rel="stylesheet" type="text/css"/>
+<script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/core/base.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/plugins/ligerDrag.js" type="text/javascript"></script> 
+<script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
 <style type="text/css">
-	#canvas,#video {
+	#canvas, #video {
 		background: #fff;
 	}
 	.box {
@@ -44,7 +44,7 @@
 	</div>
 	<div class="div13" style="text-align: center;">
 		<img alt="照片" src="" id="jtImg" class="jtImg" title="点击下载照片" onclick="downImg();"/>
-		<img id="loading" src="${pageContext.request.contextPath}/images/loading.gif" style="display: none;margin-top: 10px;" alt="正在评估..." title="正在评估..." />
+		<img id="loading" src="${pageContext.request.contextPath}/resources/images/images/loading.gif" style="display: none;margin-top: 10px;" alt="正在评估..." title="正在评估..." />
 		<div style="margin-top: 30px;">
 			<button id="pictures">拍照</button>
 			<button style="margin-left: 5px;" onclick="upImgFile();" title="现在是看脸的时代，快来让我帮你评估一下长相吧~">长相评估</button>
@@ -80,25 +80,6 @@
 			useClick();
 	}, error);
 	
-	/*
-	if (navigator.getUserMedia) { // 标准的API
-		navigator.getUserMedia({
-			"video" : true
-		}, function(stream) {
-			video.src = window.URL.createObjectURL(stream);;
-			video.play();
-			useClick();
-		}, error);
-	} else if (navigator.webkitGetUserMedia) { // WebKit 核心的API
-		navigator.webkitGetUserMedia({
-			"video" : true
-		}, function(stream) {
-			video.src = window.webkitURL.createObjectURL(stream);
-			video.play();
-			useClick();
-		}, error);
-	}*/
-	
 	// 绑定截图点击事件
 	function useClick(){
 		//点击截图 
@@ -123,6 +104,7 @@
 	
 	// 异步上传图片
 	var faceing = false;
+	
 	function upImgFile() {
 		if (jtBase64Url == null || jtBase64Url == "") {
 			$.ligerDialog.waitting('请先拍照哦~');
@@ -140,8 +122,9 @@
 		}
 		$("#loading").show();
 		faceing = true;
+		
 		$.ajax({
-			url : "${pageContext.request.contextPath}/photo/face/upImgFile.vea",
+			url : "${pageContext.request.contextPath}/home/face/upImgFile",
 			data : { "jtBase64Url" : jtBase64Url },
 			type : "post",
 			success : function(data) {

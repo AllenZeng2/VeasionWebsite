@@ -31,16 +31,6 @@ public class DesktopCloumn {
 	
 	public static final String [] SHOW_TYPES={"常规", "最大化", "最小化", "打开新窗体", "不准最大化"};
 	
-	/**
-	 * 可用
-	 */
-	public static final Integer STATUS_USE=1;
-	
-	/**
-	 * 停用
-	 */
-	public static final int STATUS_STOP=0;
-	
     private Integer id;
 
     private Integer urlId;

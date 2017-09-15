@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * 帮助类.
@@ -128,6 +129,15 @@ public class VeaUtil {
 			return "".equals(String.valueOf(obj).trim());
 		}
 		else return false;
+	}
+	
+	/**
+	 * 随机数字
+	 * 
+	 * @since 随机start-end中的任意数字，包含start和end
+	 */
+	public static int random(int start, int end){
+		return new Random().nextInt(end - start + 1) + start;
 	}
 	
 }
