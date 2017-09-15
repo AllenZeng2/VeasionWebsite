@@ -9,6 +9,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/core/base.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/plugins/ligerGrid.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
 <style>
 td,th{width:100px; height:40px;}
 div img{width: 36px; height: 36px;}
@@ -87,14 +88,32 @@ a{text-decoration:none}
 	}
 	
 	function add(){
-		window.parent.window.f_addTab("addUrl", "新增Url", "${pageContext.request.contextPath}/admin/desktop/goUrlModify.vea");
+		window.parent.window.f_addTab("addUrl", "新增Url", "${pageContext.request.contextPath}/admin/url/goUrlModify");
 	}
+	
 	function update(id,name){
-		window.parent.window.f_addTab("updateUrl", name, "${pageContext.request.contextPath}/admin/desktop/goUrlModify.vea?id="+id);
+		window.parent.window.f_addTab("updateUrl", name, "${pageContext.request.contextPath}/admin/url/goUrlModify?id="+id);
 	}
+	
 	function del(id,name){
 		if(confirm("确定要删除“"+name+"”?")){
-			location.href="${pageContext.request.contextPath}/admin/desktop/urlDelete.vea?id="+id;
+			$.ajax({
+				url:"${pageContext.request.contextPath}/admin/url/urlDelete?id="+id,
+				type:"post",
+				success:function(data){
+					if(data!=null && data>0){
+						$.ligerDialog.alert("删除成功！");
+						window.setTimeout(function(){
+							loadData(null);
+						}, 800);
+					}else{
+						$.ligerDialog.alert("删除失败！");
+					}
+				},
+				error:function(e){
+					$.ligerDialog.alert('发送错误！');
+				}
+			});
 		}
 	}
 	

@@ -12,15 +12,15 @@
 <script type="text/javascript">
 
 	function check(){
-		return !hasNull(["title","icon","url"],true);
+		return !hasNull(["title", "icon", "url"],true);
 	}
 	
 	$(function(){
-		var obj="${object}";
-		if(obj!=""&&obj!="null"){
-			$("#icon").val("${object.icon}");
-			$("#url").val($("option[data-url='${object.url}']").val());
-			$("#show_type").val("${object.show_type}");
+		var obj="${icon}";
+		if(obj!="" && obj!="null"){
+			$("#icon").val("${icon.icon}");
+			$("#url").val($("option[data-url='${icon.url}']").val());
+			$("#showType").val("${icon.showType}");
 		}
 		$('#icon').trigger("change");
 	});
@@ -32,16 +32,16 @@
 <body>
 <br/>
 <div style="text-align: center;">
-	<form action="${pageContext.request.contextPath}/admin/desktop/iconUpdate.vea" method="post" onsubmit="return check();">
-	<c:if test="${object !=null }">
-		<input type="hidden" name="id" value="${object.id }"/>
+	<form action="${pageContext.request.contextPath}/admin/icon/iconUpdate" method="post" onsubmit="return check();">
+	<c:if test="${icon !=null }">
+		<input type="hidden" name="id" value="${icon.id }"/>
 	</c:if>
 	<table>
 		<tbody>
 			<tr>
 				<th>标题：</th>
 				<td>
-					<input name="title" type="text" value="${object.title }" maxlength="10"/>
+					<input name="title" type="text" value="${icon.title }" maxlength="10"/>
 				</td>
 				<td></td>
 			</tr>
@@ -63,7 +63,7 @@
 					<input type="hidden" value="0" name="icon" />
 				</th>
 				<th>
-					<img name="icon_img" src="${object.icon }" style="width: 36px;height: 36px;">
+					<img name="icon_img" src="${icon.icon }" style="width: 36px;height: 36px;">
 				</th>
 			</tr>
 			<tr>
@@ -83,21 +83,21 @@
 			<tr>
 				<th>宽度：</th>
 				<td>
-					<input name="width" type="text" value="${object.width!=null?object.width:500 }" maxlength="4" onkeydown="return inputInt(event);"/>
+					<input name="width" type="text" value="${icon.width!=null ? icon.width : 500 }" maxlength="4" onkeydown="return inputInt(event);"/>
 				</td>
 				<td></td>
 			</tr>
 			<tr>
 				<th>高度：</th>
 				<td>
-					<input name="height" type="text" value="${object.height!=null?object.height:500 }" maxlength="4" onkeydown="return inputInt(event);"/>
+					<input name="height" type="text" value="${icon.height!=null ? icon.height : 500 }" maxlength="4" onkeydown="return inputInt(event);"/>
 				</td>
 				<td></td>
 			</tr>
 			<tr>
 				<th>类型：</th>
 				<td>
-					<select id="show_type" name="show_type">
+					<select id="showType" name="showType">
 						<c:forEach items="${showTypes }" var="type" varStatus="s">
 							<option value="${s.count-1 }">${type }</option>
 						</c:forEach>

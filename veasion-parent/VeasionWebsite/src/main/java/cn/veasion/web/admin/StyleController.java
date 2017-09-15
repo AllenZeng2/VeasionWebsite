@@ -50,7 +50,6 @@ public class StyleController {
 	
 	@RequestMapping("/goStyleModify")
 	public String goStyleModify(Integer id, HttpServletRequest request){
-		
 		if (id != null) {
 			DesktopStyle style=desktopStyleService.selectByPrimaryKey(id);
 			request.setAttribute("desktopStyle", style);
@@ -66,6 +65,10 @@ public class StyleController {
 	
 	@RequestMapping("/styleUpdate")
 	public String styleUpdate(DesktopStyle style, HttpServletRequest request){
+		if(style==null){
+			request.setAttribute("message", "参数错误！");
+			return ResponseBean.FAILURE;
+		}
 		int count=0;
 		if(style.getId()!=null){
 			// 修改
@@ -78,7 +81,6 @@ public class StyleController {
 			count=desktopStyleService.insertSelective(style);
 			request.setAttribute("tabid", "addStyle");
 		}
-		
 		return count > 0 ? ResponseBean.SUCCESS : ResponseBean.FAILURE;
 	}
 	
@@ -93,13 +95,9 @@ public class StyleController {
 	}
 	
 	@RequestMapping("/styleDelete")
-	public String styleDelete(Integer id){
-		int count=desktopStyleService.deleteByPrimaryKey(id);
-		if(count > 0){
-			return ResponseBean.SUCCESS;
-		}else{
-			return ResponseBean.FAILURE;
-		}
+	@ResponseBody
+	public Integer styleDelete(Integer id){
+		return desktopStyleService.deleteByPrimaryKey(id);
 	}
 	
 }

@@ -9,6 +9,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/core/base.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/plugins/ligerGrid.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/js/plugins/ligerDialog.js" type="text/javascript"></script>
 <style>
 td,th{width:100px; height:66px;}
 div img{width: 36px; height: 36px;cursor: pointer; }
@@ -105,7 +106,23 @@ a{text-decoration:none}
 	
 	function del(id,title){
 		if(confirm("确定要删除“"+title+"”?")){
-			location.href="${pageContext.request.contextPath}/admin/style/styleDelete?id="+id;
+			$.ajax({
+				url:"${pageContext.request.contextPath}/admin/style/styleDelete?id="+id,
+				type:"post",
+				success:function(data){
+					if(data!=null && data>0){
+						$.ligerDialog.alert("删除成功！");
+						window.setTimeout(function(){
+							loadData(null);
+						}, 800);
+					}else{
+						$.ligerDialog.alert("删除失败！");
+					}
+				},
+				error:function(e){
+					$.ligerDialog.alert('发送错误！');
+				}
+			});
 		}
 	}
 	
@@ -120,11 +137,11 @@ a{text-decoration:none}
 				if(data!=null && data>0){
 					loadData({"name":$("#name").val()});
 				}else{
-					alert("修改失败！");
+					$.ligerDialog.alert("修改失败！");
 				}
 			},
 			error:function(e){
-				alert('发送错误！');
+				$.ligerDialog.alert('发送错误！');
 			}
 		});
 	}	

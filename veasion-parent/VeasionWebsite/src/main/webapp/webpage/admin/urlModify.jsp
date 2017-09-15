@@ -12,13 +12,13 @@
 <script type="text/javascript">
 
 	function check(){
-		return !hasNull(["name","type","url"],true);
+		return !hasNull(["name", "type", "url"],true);
 	}
 	
 	$(function(){
-		var obj="${object}";
+		var obj="${url}";
 		if(obj!="" && obj!="null"){
-			$("#type").val("${object.type}");
+			$("#type").val("${url.type}");
 		}
 	});
 	
@@ -29,60 +29,60 @@
 <body>
 <br/>
 <div style="text-align: center;">
-	<form action="${pageContext.request.contextPath}/admin/desktop/urlUpdate.vea" method="post" onsubmit="return check();">
-	<c:if test="${object !=null }">
-		<input type="hidden" name="id" value="${object.id }"/>
-	</c:if>
-	<table>
-		<tbody>
-			<tr>
-				<th>名称：</th>
-				<td>
-					<input name="name" type="text" value="${object.name }" maxlength="10"/>
-				</td>
-				<td></td>
-			</tr>
-			<c:if test="${object.type==2 || object.type==3 }">
+	<form action="${pageContext.request.contextPath}/admin/url/urlModify" method="post" onsubmit="return check();">
+		<c:if test="${url !=null }">
+			<input type="hidden" name="id" value="${url.id }"/>
+		</c:if>
+		<table>
+			<tbody>
 				<tr>
-					<th>图标：</th>
-					<th>
-						<img name="icon_img" src="${object.url }" style="width: ${object.type==3 ? '36px' : '140px'};height: ${object.type==3 ? '36px' : '100px'};">
-					</th>
-					<th>&nbsp;</th>
+					<th>名称：</th>
+					<td>
+						<input name="name" type="text" value="${url.name }" maxlength="10"/>
+					</td>
+					<td></td>
 				</tr>
-			</c:if>
-			<tr>
-				<th>URL：</th>
-				<td>
-					<input id="url" name="url" value="${object.url }" title="${object.url }" ${object !=null && object.type!=1 ? "disabled='disabled'" : "" } />
-				</td>
-				<td>
-					<c:if test="${object.type==1 }">
-						<a href="javascript:openURL($('#url').val());">浏览</a>
-					</c:if>&nbsp;
-				</td>
-			</tr>
-			<tr>
-				<th>类型：</th>
-				<td>
-					<select name="type" ${object !=null && object.type!=1 ? "disabled='disabled'" : "" } >
-						<option value="1">访问链接</option>
-						<c:if test="${object !=null }">
-							<option value="2" ${object.type==2?"selected":"" }>桌面背景</option>
-							<option value="3" ${object.type==3?"selected":"" }>图标</option>
-							<option value="4" ${object.type==4?"selected":"" }>文件链接</option>
-						</c:if>
-					</select>
-				</td>
-				<td>&nbsp;</td>
-			</tr>
-			<tr>
-				<th colspan="3">
-					<input type="submit" value="保存"/>
-				</th>
-			</tr>
-		</tbody>
-	</table>
+				<c:if test="${url.type==2 || url.type==3 }">
+					<tr>
+						<th>图标：</th>
+						<th>
+							<img name="icon_img" src="${url.url }" style="width: ${url.type==3 ? '36px' : '140px'};height: ${url.type==3 ? '36px' : '100px'};">
+						</th>
+						<th>&nbsp;</th>
+					</tr>
+				</c:if>
+				<tr>
+					<th>URL：</th>
+					<td>
+						<input id="url" name="url" value="${url.url }" title="${url.url }" ${url !=null && url.type!=1 ? "disabled='disabled'" : "" } />
+					</td>
+					<td>
+						<c:if test="${url.type==1 }">
+							<a href="javascript:openURL($('#url').val());">浏览</a>
+						</c:if>&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<th>类型：</th>
+					<td>
+						<select name="type" ${url !=null && url.type!=1 ? "disabled='disabled'" : "" } >
+							<option value="1">访问链接</option>
+							<c:if test="${url !=null }">
+								<option value="2" ${url.type==2 ? "selected": "" }>桌面背景</option>
+								<option value="3" ${url.type==3 ? "selected": "" }>图标</option>
+								<option value="4" ${url.type==4 ? "selected": "" }>文件链接</option>
+							</c:if>
+						</select>
+					</td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<th colspan="3">
+						<input type="submit" value="保存"/>
+					</th>
+				</tr>
+			</tbody>
+		</table>
 	</form>
 </div>
 </body>
