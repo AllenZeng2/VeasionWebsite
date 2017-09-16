@@ -198,7 +198,7 @@ insert into veasion_url values ('29', '小希', 'http://veasion.oss-cn-shanghai.
 insert into veasion_url values ('30', '跑车', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/45962c6e-861f-4f7d-b40b-cd84f1dbeded.jpg', '2', NOW());
 insert into veasion_url values ('31', '水滴', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/f3412719-2850-4d39-832e-5517422de13c.jpg', '2', NOW());
 insert into veasion_url values ('32', 'Mac', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/037dd7ac-33a9-4553-a6e7-eb38d585469b.jpg', '2', NOW());
-insert into veasion_url values ('35', '我的主页', '/VeasionWebsite/webpage/index.jsp', '1', NOW());
+insert into veasion_url values ('35', '我的主页', '/VeasionWebsite/home/desktop/index', '1', NOW());
 insert into veasion_url values ('36', '优酷电影', 'http://www.youku.com/', '1', NOW());
 insert into veasion_url values ('37', '记事本', '/VeasionWebsite/webpage/home/notepad.jsp', '1', NOW());
 insert into veasion_url values ('38', '#', '#', '1', NOW());

@@ -204,7 +204,7 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 		</div>
 		<div position="center" id="framecenter">
 			<div tabid="home" title="我的主页" style="height: 300px">
-				<iframe frameborder="0" name="home" id="home" src="${pageContext.request.contextPath}/webpage/index.jsp"></iframe>
+				<iframe frameborder="0" name="home" id="home" src="${pageContext.request.contextPath}/home/desktop/index"></iframe>
 			</div>
 		</div>
 	</div>

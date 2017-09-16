@@ -39,7 +39,7 @@ body, html {width: 100%;height: 100%;}
 	
 	var winlinksul = $("#winlinks ul");
 	
-	//存放对应的id,win对象
+	//存放对应的id, win对象
 	var opens=new Array();
 	
 	//根据id获取open对象
@@ -58,6 +58,7 @@ body, html {width: 100%;height: 100%;}
 		}else{
 			url+="?icon_id="+id;
 		}
+		
 		var win = $.ligerDialog.open({
 			id : id,
 			height : height != null ? height : 500,
@@ -69,7 +70,8 @@ body, html {width: 100%;height: 100%;}
 			modal : false,
 			title : title,
 			slide : false,
-			onLoaded :function(){}
+			/*onLoaded :function(){},
+			onClose:function(){}*/
 		});
 		
 		if(openMax!=null){
@@ -82,7 +84,7 @@ body, html {width: 100%;height: 100%;}
 		if (task) {
 			$(".l-taskbar-task-icon:first", task).html('<img src="' + icon + '" />');
 		}
-		opens.push({"id":id,"obj":win});
+		opens.push({"id":id, "obj":win});
 		return win;
 	}
 	

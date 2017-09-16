@@ -15,7 +15,6 @@ import com.aliyun.oss.model.OSSObject;
 import com.aliyun.oss.model.ObjectListing;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
-import com.aliyun.oss.model.PutObjectResult;
 
 import cn.veasion.util.ConfigUtil;
 
@@ -86,7 +85,7 @@ public class OssUtil {
 		
 		ossClient.putObject(putObjectRequest);
 		String fileUrl=getOssFileUrl(bucketName, key);
-		LOGGER.debug("Oss文件上传路径："+fileUrl);
+		LOGGER.info("Oss文件上传路径："+fileUrl);
 		return fileUrl;
 	}
 	
