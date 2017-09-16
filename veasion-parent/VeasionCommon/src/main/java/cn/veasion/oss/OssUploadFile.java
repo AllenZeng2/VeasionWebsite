@@ -26,29 +26,30 @@ public class OssUploadFile {
 	private Object object;
 	
 	/**根据文件上传，fileName可空*/
-	public OssUploadFile(File file,String directory,String fileName){
+	public OssUploadFile(File file, String directory, String fileName){
 		this(directory, fileName);
 		this.file=file;
 		this.object=this.file;
-		if(VeaUtil.isNullEmpty(fileName))
+		if(VeaUtil.isNullEmpty(fileName)){
 			this.fileName=file.getName();
+		}
 	}
 	
 	/**根据IO流上传*/
-	public OssUploadFile(InputStream input,String directory,String fileName){
+	public OssUploadFile(InputStream input, String directory, String fileName){
 		this(directory, fileName);
 		this.input=input;
 		this.object=this.input;
 	}
 	
 	/**根据Url链接上传*/
-	public OssUploadFile(URL url,String directory,String fileName){
+	public OssUploadFile(URL url, String directory, String fileName){
 		this(directory, fileName);
 		this.url=url;
 		this.object=this.url;
 	}
 	
-	private OssUploadFile(String directory,String fileName){
+	private OssUploadFile(String directory, String fileName){
 		// 目录不能以/开头
 		if(directory.startsWith("/") || directory.startsWith("\\")){
 			directory=directory.substring(1);

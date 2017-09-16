@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.ListObjectsRequest;
@@ -22,6 +25,8 @@ import cn.veasion.util.ConfigUtil;
  * @author zhuowei.luo
  */
 public class OssUtil {
+	
+	private static final Logger LOGGER=Logger.getLogger(OssUtil.class);
 	
 	private static String ossHttp="http://";
 	private static String endpoint="oss-cn-shanghai.aliyuncs.com";
@@ -79,11 +84,10 @@ public class OssUtil {
 			putObjectRequest.<PutObjectRequest> withProgressListener(ossListener);
 		}
 		
-		PutObjectResult result = ossClient.putObject(putObjectRequest);
-		
-		//System.out.println(result.getETag());
-		
-		return getOssFileUrl(bucketName, key);
+		ossClient.putObject(putObjectRequest);
+		String fileUrl=getOssFileUrl(bucketName, key);
+		LOGGER.debug("Oss文件上传路径："+fileUrl);
+		return fileUrl;
 	}
 	
 	/**

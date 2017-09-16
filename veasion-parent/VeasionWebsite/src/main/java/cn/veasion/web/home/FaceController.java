@@ -1,10 +1,14 @@
 package cn.veasion.web.home;
 
 import java.io.File;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +29,7 @@ import cn.veasion.face.bean.ImageTextBean;
 import cn.veasion.oss.OssUploadFile;
 import cn.veasion.oss.OssUtil;
 import cn.veasion.service.DictionaryService;
+import cn.veasion.service.RedisSimpleService;
 import cn.veasion.util.ConfigUtil;
 import cn.veasion.util.Constant;
 import cn.veasion.util.FileUtil;
@@ -42,6 +47,8 @@ public class FaceController {
 
 	@Autowired
 	private DictionaryService dictionaryService;
+	@Autowired
+	private RedisSimpleService redisSimpleService;
 	
 	/**
 	 * 人脸识别
@@ -105,18 +112,24 @@ public class FaceController {
 	/**异步保存图片到Oss*/
 	private void upFileToOss(final String base64, final String type){
 		// 判断是否保存图片，不保存则return
-		if(!ConfigUtil.getPropertyBoolean(Constant.SaveFaceImg, false))
+		if(!ConfigUtil.getPropertyBoolean(Constant.SaveFaceImg, false)){
 			return;
+		}
 		new Thread(()->{
 			OSSClient client=null;
 			File file=null;
 			try{
-				String filePath=FileUtil.HOME_PATH+"/"+UUID.randomUUID()+"."+type;
-				boolean saveImg=ImageUtil.generateImage(base64, filePath);
+				StringBuilder filePath=new StringBuilder();
+				filePath.append(FileUtil.HOME_PATH);
+				filePath.append("/face_");
+				filePath.append(VeaUtil.formatDate(new Date(), "yyyy-MM-dd_HH_mm_ss"));
+				filePath.append("_").append(VeaUtil.random(0, 100)).append(".").append(type);
+				boolean saveImg=ImageUtil.generateImage(base64, filePath.toString());
 				if(saveImg){
-					file=new File(filePath);
+					file=new File(filePath.toString());
 					OssUploadFile upFile=new OssUploadFile(file, "faceImg/", null);
 					client=OssUtil.getOssClient();
+					System.out.println("正在上传Face图片到Oss...");
 					OssUtil.uploadObject(client, OssUtil.bucketName, upFile, null);
 				}
 			}catch(Exception e){
@@ -187,16 +200,17 @@ public class FaceController {
 			return false;
 		}
 		try {
-			Object autoToken = req.getSession().getServletContext().getAttribute("faceToken");
-			String authoFaceToken = autoToken != null ? autoToken.toString() : null;
+			Serializable autoToken=redisSimpleService.get("authorFaceToken");
+			String authoFaceToken = autoToken != null ? (String)autoToken : null;
 			CommonOperate comm=new CommonOperate(FaceUtil.getFaceKey(), FaceUtil.getFaceSecret(), false);
-			FaceResponse faceResponse=comm.compare(faceToken, null, null, null, authoFaceToken, authoFaceToken==null?FaceUtil.getMyFaceImg():null, null, null);
+			FaceResponse faceResponse = comm.compare(faceToken, null, null, null, authoFaceToken,
+					authoFaceToken == null ? FaceUtil.getMyFaceImg() : null, null, null);
 			if(faceResponse.getStatus()==200){
 				CompareBean bean=new CompareBean(faceResponse);
 				double xsl=bean.getConfidence();
 				//System.out.println("相似度："+xsl);
 				if(authoFaceToken==null){
-					req.getSession().getServletContext().setAttribute("faceToken", bean.getFaceToken2());
+					redisSimpleService.add("authorFaceToken", bean.getFaceToken2(), 12, TimeUnit.HOURS);
 				}
 				if (xsl >= 85) {
 					return true;

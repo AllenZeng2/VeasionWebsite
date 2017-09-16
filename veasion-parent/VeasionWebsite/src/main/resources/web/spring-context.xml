@@ -14,6 +14,7 @@
 			<list>
 				<value>classpath*:jdbc.properties</value>
 				<value>classpath*:config.properties</value>
+				<value>classpath*:redis.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -33,5 +34,6 @@
 	<context:component-scan base-package="cn.veasion.mapper" />
 	
 	<import resource="classpath*:web/spring-mysql.xml" />
+	<import resource="classpath*:web/spring-redis.xml" />
 	
 </beans>

@@ -1,9 +1,11 @@
 package cn.veasion.service.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import cn.veasion.entity.DesktopStyle;
 import cn.veasion.mapper.DesktopCloumnMapper;
 import cn.veasion.mapper.DesktopStyleMapper;
 import cn.veasion.service.DesktopStyleService;
+import cn.veasion.service.RedisSimpleService;
 import cn.veasion.util.VeaUtil;
 
 @Service("desktopStyleService")
@@ -26,6 +29,8 @@ public class DesktopStyleServiceImpl implements DesktopStyleService{
 	private DesktopStyleMapper desktopStyleMapper;
 	@Autowired
 	private DesktopCloumnMapper desktopCloumnMapper;
+	@Autowired
+	private RedisSimpleService redisSimpleService;
 	
 	@Override
 	public int insert(DesktopStyle record) {
@@ -114,6 +119,7 @@ public class DesktopStyleServiceImpl implements DesktopStyleService{
 
 	@Override
 	public Integer styleSwitchStatus(Integer id) {
+		redisSimpleService.delete(DesktopStyle.REDIS_KEY+"InUse");
 		return desktopStyleMapper.styleSwitchStatus(id);
 	}
 	
@@ -130,6 +136,10 @@ public class DesktopStyleServiceImpl implements DesktopStyleService{
 	
 	@Override
 	public DesktopStyle selectForInUse() {
+		Serializable obj=redisSimpleService.get(DesktopStyle.REDIS_KEY+"InUse");
+		if(obj!=null && obj instanceof DesktopStyle){
+			return (DesktopStyle)obj;
+		}
 		PageModel<DesktopStyle> pageModel=new PageModel<>(1, 1);
 		DesktopStyle style=new DesktopStyle();
 		style.setStatus(EntityBean.STATUS_USE);
@@ -140,6 +150,7 @@ public class DesktopStyleServiceImpl implements DesktopStyleService{
 			if(style!=null){
 				this.selectDesktopCloumn(style);
 			}
+			redisSimpleService.add(DesktopStyle.REDIS_KEY+"InUse", style, 12, TimeUnit.HOURS);
 			return style;
 		}else{
 			return null;

@@ -1,9 +1,12 @@
 package cn.veasion.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class VeasionUrl {
+public class VeasionUrl implements Serializable{
 	
+	private static final long serialVersionUID = 4676061036203376267L;
+
 	/**
 	 * 访问链接
 	 */

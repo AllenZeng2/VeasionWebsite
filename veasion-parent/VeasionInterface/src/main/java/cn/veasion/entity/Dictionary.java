@@ -1,8 +1,11 @@
 package cn.veasion.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Dictionary {
+public class Dictionary implements Serializable{
+	
+	private static final long serialVersionUID = -2155460434219073779L;
 	
 	/**
 	 * 作者名称

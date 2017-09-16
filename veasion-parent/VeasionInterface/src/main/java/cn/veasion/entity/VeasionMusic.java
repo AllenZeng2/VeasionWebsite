@@ -1,8 +1,12 @@
 package cn.veasion.entity;
 
-public class VeasionMusic {
+import java.io.Serializable;
+
+public class VeasionMusic implements Serializable{
 	
-    private Integer id;
+	private static final long serialVersionUID = 2268624449335341068L;
+
+	private Integer id;
 
     private String name;
 

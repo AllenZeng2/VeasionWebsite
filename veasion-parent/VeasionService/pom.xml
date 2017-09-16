@@ -89,6 +89,21 @@
 		<artifactId>spring-jdbc</artifactId>
 	</dependency>
 	
+	<!--redis start -->
+	<dependency>
+		<groupId>redis.clients</groupId>
+		<artifactId>jedis</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.data</groupId>
+		<artifactId>spring-data-redis</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>net.sf.ezmorph</groupId>
+		<artifactId>ezmorph</artifactId>
+	</dependency>
+	<!--redis end -->
+		
 	 <!-- log4j -->
     <dependency>
 		<groupId>log4j</groupId>

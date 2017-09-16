@@ -15,6 +15,37 @@
     <module>VeasionCommon</module>
   </modules>
   
+  <!-- 配置 -->
+  <profiles>
+  	<profile>
+  		<properties>
+  			<!-- mysql -->
+  			<pom.jdbc.url>localhost</pom.jdbc.url>
+  			<pom.jdbc.database>veasion</pom.jdbc.database>
+  			<pom.jdbc.username>root</pom.jdbc.username>
+  			<pom.jdbc.password>root</pom.jdbc.password>
+  			
+  			<!-- redis -->
+  			<pom.redis.host>localhost</pom.redis.host>
+  			<pom.redis.password>xxx</pom.redis.password>
+  			
+  			<!-- oss -->
+  			<pom.oss.key>xxx</pom.oss.key>
+  			<pom.oss.secret>xxx</pom.oss.secret>
+  			<pom.oss.bucket>xxx</pom.oss.bucket>
+  			<pom.oss.end_point>oss-cn-shanghai.aliyuncs.com</pom.oss.end_point>
+  			
+  			<!-- face++ -->
+  			<pom.face.key>rGhXZjSqWLOluq04axCW80jCm21I-j32</pom.face.key>
+  			<pom.face.secret>imOWbNz3RUJ8GcIepLdVvxvoFrJsS9e-</pom.face.secret>
+  			<pom.face.auto_image>http://veasion.oss-cn-shanghai.aliyuncs.com/faceImg/veasion.jpg</pom.face.auto_image>
+  		</properties>
+  		<activation>
+  			<activeByDefault>true</activeByDefault>
+  		</activation>
+  	</profile>
+  </profiles>
+  
   <properties>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<springframework.version>4.3.2.RELEASE</springframework.version>
@@ -24,6 +55,10 @@
 	<mysql.connector.version>5.1.38</mysql.connector.version>
 	<mybatis.version>3.2.8</mybatis.version>
 	<mybatis.spring.version>1.2.2</mybatis.spring.version>
+	
+	<!-- redis -->
+	<jedis.version>2.7.3</jedis.version>
+	<spring.data.redis.version>1.6.2.RELEASE</spring.data.redis.version>
 	
 	<!-- json -->
 	<jackson.version>2.8.2</jackson.version>
@@ -44,7 +79,6 @@
   
   <dependencyManagement>
   	<dependencies>
-  		
   		<!-- test -->
   		<dependency>
 	      <groupId>junit</groupId>
@@ -236,6 +270,19 @@
 		</dependency>
 		<!-- mysql end -->
 	
+		<!--redis start -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+			<version>${spring.data.redis.version}</version>
+		</dependency>
+		<!--redis end -->
+	
 		<!--commons -->
 		<dependency>
 			<groupId>commons-lang</groupId>
@@ -342,20 +389,4 @@
 		</plugins>
 	</pluginManagement>
   </build>
-  
-  <profiles>
-  	<profile>
-  		<id>Veasion</id>
-  		<properties>
-  			<pom.jdbc.url>localhost</pom.jdbc.url>
-  			<pom.jdbc.database>veasion</pom.jdbc.database>
-  			<pom.jdbc.username>root</pom.jdbc.username>
-  			<pom.jdbc.password>root</pom.jdbc.password>
-  		</properties>
-  		<activation>
-  			<activeByDefault>true</activeByDefault>
-  		</activation>
-  	</profile>
-  </profiles>
-  
 </project>

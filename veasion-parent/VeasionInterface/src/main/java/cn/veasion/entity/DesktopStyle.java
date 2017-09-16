@@ -1,9 +1,17 @@
 package cn.veasion.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class DesktopStyle {
+public class DesktopStyle implements Serializable{
+	
+	private static final long serialVersionUID = 5184132726363126313L;
+	
+	/**
+	 * Redis Key. 
+	 */
+	public static final String REDIS_KEY="DesktopStyle_";
 	
     private Integer id;
 

@@ -1,9 +1,12 @@
 package cn.veasion.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class DesktopCloumn {
+public class DesktopCloumn implements Serializable{
 	
+	private static final long serialVersionUID = -4171881884997364890L;
+
 	/**
 	 * 常规
 	 */
