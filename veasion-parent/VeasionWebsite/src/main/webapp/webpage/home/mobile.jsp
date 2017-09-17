@@ -26,7 +26,11 @@
 		$("ul.nav1").hide();
 	}
 	// 点赞
+	var kydz=true;
 	function upvote(){
+		if(!kydz){
+			return;
+		}
 		$.ajax({
 			url : "${pageContext.request.contextPath}/home/desktop/upvote",
 			type : "post",
@@ -38,6 +42,7 @@
 					setTimeout(function(){
 						obj.text(count);
 					}, 200);
+					kydz=false;
 				}
 			}
 		});
