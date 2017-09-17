@@ -19,10 +19,13 @@ import com.aliyun.oss.model.OSSObjectSummary;
 import com.aliyun.oss.model.ObjectListing;
 
 import cn.veasion.entity.DesktopStyle;
+import cn.veasion.entity.KeyValue;
 import cn.veasion.entity.VeasionMusic;
 import cn.veasion.oss.OssFilePage;
 import cn.veasion.oss.OssUtil;
 import cn.veasion.service.DesktopStyleService;
+import cn.veasion.service.IpRecordService;
+import cn.veasion.service.KeyValueService;
 import cn.veasion.service.RedisSimpleService;
 import cn.veasion.service.UserService;
 import cn.veasion.service.VeasionMusicService;
@@ -44,17 +47,55 @@ public class DesktopController {
 	@Autowired
 	private VeasionMusicService musicService;
 	@Autowired
+	private KeyValueService keyValueService;
+	@Autowired
+	private IpRecordService ipService;
+	@Autowired
 	private UserService userService;
 	@Autowired
 	private RedisSimpleService redisSimpleService;
 	
 	/**
-	 * 加载正在使用的桌面数据 
+	 * 加载电脑端桌面数据 
 	 */
 	@RequestMapping("/loadDesktopData")
 	@ResponseBody
 	public DesktopStyle loadDesktopData(){
 		return desktopStyleService.selectForInUse();
+	}
+	
+	/**
+	 * 加载移动端web数据
+	 */
+	@RequestMapping("/loadMobileData")
+	public String loadMobileData(HttpServletRequest req){
+		req.setAttribute("accessCount", ipService.count(null));
+		req.setAttribute("desktop", loadDesktopData());
+		KeyValue kv1=keyValueService.select(Constant.AUTOGRAPH);
+		req.setAttribute("autograph", kv1!=null ? kv1.getValue() : "Veasion");
+		KeyValue kv2=keyValueService.select(Constant.UPVOTE_COUNT);
+		req.setAttribute("upvoteCount", kv2!=null ? VeaUtil.valueOfInt(kv2.getValue(), 0) : "0");
+		return "home/mobile";
+	}
+	
+	/**
+	 * 点赞 
+	 */
+	@RequestMapping("/upvote")
+	@ResponseBody
+	public Boolean upvote(HttpServletRequest req){
+		if(req.getSession().getAttribute(Constant.UPVOTE)==null){
+			KeyValue kv=keyValueService.select(Constant.UPVOTE_COUNT);
+			if(kv==null){
+				keyValueService.insert(new KeyValue(Constant.UPVOTE_COUNT, "1"));
+			}else{
+				keyValueService.update(new KeyValue(Constant.UPVOTE_COUNT, VeaUtil.valueOfInt(kv.getValue(), 0)+1+""));
+			}
+			req.getSession().setAttribute(Constant.UPVOTE, Constant.UPVOTE);
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	/**

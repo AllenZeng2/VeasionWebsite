@@ -36,79 +36,63 @@ body, html {width: 100%;height: 100%;}
 	<img alt="正在加载..." id="loading" src="${pageContext.request.contextPath}/resources/images/loading.gif" />
 </body>
 <script type="text/javascript">
-
 	var linkWidth = 90, linkHeight = 90, taskbarHeight = 43;
+	var winlinksul = $("#winlinks ul");// ul
+	var links = [];// 图标
+	var opens=new Array();//存放对应的id, win对象
 	
-	var winlinksul = $("#winlinks ul");
-	
-	//存放对应的id, win对象
-	var opens=new Array();
-	
-	//根据id获取open对象
-	function getOpenObj(id){
-		for(var i=0,l=opens.length;i<l;i++){
-			if(opens[i].id==id){
-				return opens[i].obj;
-			}
-		}
-		return null;
-	}
-	
-	function f_open(id, url, title, icon, width, height, showMax, openMax, openMin) {
-		if(url.indexOf('?')!=-1){
-			url+="&icon_id="+id;
+	$(function() {
+		var system ={};  
+		var p = navigator.platform;       
+		system.win = p.indexOf("Win") == 0;  
+		system.mac = p.indexOf("Mac") == 0;  
+		system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);     
+	    if(system.win||system.mac||system.xll){
+			// 电脑访问
+			$(window).resize(onResize);
+			$.ligerui.win.removeTaskbar = function() {}; //不允许移除
+			$.ligerui.win.createTaskbar(); // 页面加载时创建任务栏
+			loadData();
 		}else{
-			url+="?icon_id="+id;
+			 // 手机访问
+		 	window.location.href="${pageContext.request.contextPath}/home/desktop/loadMobileData";
 		}
-		
-		var win = $.ligerDialog.open({
-			id : id,
-			height : height != null ? height : 500,
-			url : url,
-			width : width != null ? width : 600,
-			showMax : showMax,
-			showMin : true,
-			isResize : true,
-			modal : false,
-			title : title,
-			slide : false
+	});
+	
+	// 请求数据
+	function loadData(){
+		$.ajax({
+			url : "${pageContext.request.contextPath}/home/desktop/loadDesktopData",
+			type : "post",
+			success : function(data) {
+				if(data!=null){
+					links = data.desktopCloumns;
+				}
+				if(data==null || links==null || links.length<1){
+					links=[{id:"icon_notepad", url:"${pageContext.request.contextPath}/webpage/home/notepad.jsp", icon:"${pageContext.request.contextPath}/webpage/resources/images/icon_notepad.png", title:"记事本", showMax:false}];
+				}
+				// 创建图标
+				createIcons();
+				// 背景
+				if(data!=null){
+					$("body").css("background","url("+ data.bgimg+") no-repeat center center");
+					//$("body").css("background-image","url("+ data.bgimg+")");
+					$("#winlinks li img").css("width", data.cloumnWidth).css("height", data.cloumnHeight);
+				}else{
+					$("#winlinks li img").css("width", 36).css("height", 36);
+					$("body").css("background-color", "black");
+				}
+				// 图标top, left自适应
+				onResize();
+				$("#loading").hide();
+			},
+			error:function(e) {
+				$.ligerDialog.alert('初始化数据错误！');
+			}
 		});
-		
-		if(openMax!=null){
-			win.max();
-		}else if(openMin!=null){
-			win.min();
-		}
-		
-		var task = jQuery.ligerui.win.tasks[win.id];
-		if (task) {
-			$(".l-taskbar-task-icon:first", task).html('<img src="' + icon + '" />');
-		}
-		opens.push({"id":id, "obj":win});
-		return win;
 	}
 	
-	var links = [];
-	
-	function onResize() {
-		var windowHeight=document.documentElement.clientHeight;
-		var linksHeight = windowHeight - taskbarHeight;
-		var winlinks = $("#winlinks");
-		winlinks.height(linksHeight);
-		var colMaxNumber = parseInt(linksHeight / linkHeight);//一列最多显示几个快捷方式
-		for (var i = 0, l = links.length; i < l; i++) {
-			var link = links[i];
-			var jlink = $("li[linkindex=" + i + "]", winlinks);
-			var top = (i % colMaxNumber) * linkHeight, left = parseInt(i/colMaxNumber)*linkWidth;
-			if (isNaN(top) || isNaN(left))
-				continue;
-			jlink.css({
-				top : top,
-				left : left
-			});
-		}
-	}
-	
+	// 创建图标
 	function createIcons(){
 		for (var i = 0, l = links.length; i < l; i++) {
 			var link = links[i];
@@ -144,46 +128,70 @@ body, html {width: 100%;height: 100%;}
 		}
 	}
 	
-	$(window).resize(onResize);
-	$.ligerui.win.removeTaskbar = function() {}; //不允许移除
-	$.ligerui.win.createTaskbar(); // 页面加载时创建任务栏
-	
-	//请求桌面数据
-	$(function() {
-		$.ajax({
-			url : "${pageContext.request.contextPath}/home/desktop/loadDesktopData",
-			type : "post",
-			success : function(data) {
-				if(data!=null){
-					links = data.desktopCloumns;
-				}
-				
-				if(data==null || links==null || links.length<1){
-					links=[{id:"icon_notepad", url:"${pageContext.request.contextPath}/webpage/home/notepad.jsp", icon:"${pageContext.request.contextPath}/webpage/resources/images/icon_notepad.png", title:"记事本", showMax:false}];
-				}
-				
-				// 创建图标
-				createIcons();
-				
-				// 背景
-				if(data!=null){
-					$("body").css("background","url("+ data.bgimg+") no-repeat center center");
-					//$("body").css("background-image","url("+ data.bgimg+")");
-					$("#winlinks li img").css("width", data.cloumnWidth).css("height", data.cloumnHeight);
-				}else{
-					$("#winlinks li img").css("width", 36).css("height", 36);
-					$("body").css("background-color", "black");
-				}
-				
-				// 图标top, left自适应
-				onResize();
-				$("#loading").hide();
-			},
-			error:function(e) {
-				$.ligerDialog.alert('初始化数据错误！');
-			}
+	// 打开页面
+	function f_open(id, url, title, icon, width, height, showMax, openMax, openMin) {
+		if(url.indexOf('?')!=-1){
+			url+="&icon_id="+id;
+		}else{
+			url+="?icon_id="+id;
+		}
+		
+		var win = $.ligerDialog.open({
+			id : id,
+			height : height != null ? height : 500,
+			url : url,
+			width : width != null ? width : 600,
+			showMax : showMax,
+			showMin : true,
+			isResize : true,
+			modal : false,
+			title : title,
+			slide : false
 		});
-	});
+		
+		if(openMax!=null){
+			win.max();
+		}else if(openMin!=null){
+			win.min();
+		}
+		
+		var task = jQuery.ligerui.win.tasks[win.id];
+		if (task) {
+			$(".l-taskbar-task-icon:first", task).html('<img src="' + icon + '" />');
+		}
+		opens.push({"id":id, "obj":win});
+		return win;
+	}
+	
+	//根据id获取open对象
+	function getOpenObj(id){
+		for(var i=0,l=opens.length;i<l;i++){
+			if(opens[i].id==id){
+				return opens[i].obj;
+			}
+		}
+		return null;
+	}
+	
+	// window窗口大小监听
+	function onResize() {
+		var windowHeight=document.documentElement.clientHeight;
+		var linksHeight = windowHeight - taskbarHeight;
+		var winlinks = $("#winlinks");
+		winlinks.height(linksHeight);
+		var colMaxNumber = parseInt(linksHeight / linkHeight);//一列最多显示几个快捷方式
+		for (var i = 0, l = links.length; i < l; i++) {
+			var link = links[i];
+			var jlink = $("li[linkindex=" + i + "]", winlinks);
+			var top = (i % colMaxNumber) * linkHeight, left = parseInt(i/colMaxNumber)*linkWidth;
+			if (isNaN(top) || isNaN(left))
+				continue;
+			jlink.css({
+				top : top,
+				left : left
+			});
+		}
+	}
 	
 	// 鼠标右键菜单
 	document.oncontextmenu = function(){

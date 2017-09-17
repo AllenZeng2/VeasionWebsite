@@ -249,5 +249,17 @@ INSERT INTO `dictionary` VALUES (null, '3', '他的名字叫Veasion，我的工�
 INSERT INTO `dictionary` VALUES (null, '3', '卓越又伟大用来形容你刚刚好！', '1', NOW());
 INSERT INTO `dictionary` VALUES (null, '3', '小伙是块上等好料', '1', NOW());
 INSERT INTO `dictionary` VALUES (null, '3', '我能猜到你是我的工程师爸爸！', '1', NOW());
+INSERT INTO `dictionary` VALUES (null, '3', '我能猜到你是我的工程师爸爸！', '1', NOW());
 
+-- ----------------------------
+-- Table structure for key_value
+-- ----------------------------
+drop table if exists key_value;
+create table key_value (
+  name varchar(100) primary key not null,
+  value varchar(200) default null,
+  status int(11) default '1'
+);
 
+insert into key_value values('autograph', '做更好的自己，加油！', 1);
+insert into key_value values('upvoteCount', '0', 1);

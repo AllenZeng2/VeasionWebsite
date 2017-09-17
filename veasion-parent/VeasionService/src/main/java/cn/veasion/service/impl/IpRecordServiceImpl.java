@@ -50,6 +50,13 @@ public class IpRecordServiceImpl implements IpRecordService{
 	}
 
 	@Override
+	public int count(IpRecord ip) {
+		PageModel<IpRecord> pm=new PageModel<>();
+		pm.setObj(ip);
+		return ipRecordMapper.count(pm);
+	}
+	
+	@Override
 	public List<IpRecord> select(PageModel<IpRecord> pageModel) {
 		pageModel.setCount(ipRecordMapper.count(pageModel));
 		List<IpRecord> result=ipRecordMapper.select(pageModel);

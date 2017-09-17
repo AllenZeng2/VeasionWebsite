@@ -149,8 +149,10 @@ public class DesktopStyleServiceImpl implements DesktopStyleService{
 			style=styles.get(0);
 			if(style!=null){
 				this.selectDesktopCloumn(style);
+				new Thread(()->{
+					redisSimpleService.add(DesktopStyle.REDIS_KEY+"InUse", styles.get(0), 12, TimeUnit.HOURS);
+				}).start();
 			}
-			redisSimpleService.add(DesktopStyle.REDIS_KEY+"InUse", style, 12, TimeUnit.HOURS);
 			return style;
 		}else{
 			return null;

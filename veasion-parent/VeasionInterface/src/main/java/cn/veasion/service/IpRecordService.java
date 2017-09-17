@@ -24,6 +24,8 @@ public interface IpRecordService {
     
     int deleteByPrimaryKey(Integer id);
     
+    int count(IpRecord ip);
+    
     List<IpRecord> select(PageModel<IpRecord> pageModel);
     
 }
