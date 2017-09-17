@@ -49,6 +49,10 @@
 	<!-- 拦截器 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
+			<mvc:mapping path="/home/desktop/loadDesktopData" />
+			<bean class="cn.veasion.web.user.UserInterceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
 			<mvc:mapping path="/admin/**" />
 			<bean class="cn.veasion.handle.AdminInterceptor" />
 		</mvc:interceptor>

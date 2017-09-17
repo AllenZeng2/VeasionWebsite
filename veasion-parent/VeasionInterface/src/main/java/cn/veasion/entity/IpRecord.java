@@ -1,8 +1,16 @@
 package cn.veasion.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class IpRecord {
+public class IpRecord implements Serializable{
+	
+	private static final long serialVersionUID = 7775438981940662041L;
+
+	/**
+	 * 时间排序字段 
+	 */
+	public static final String ORDER_BY_DATE="date";
 	
     private Integer id;
 

@@ -1,14 +1,14 @@
 package cn.veasion.service.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import cn.veasion.bean.PageModel;
 import cn.veasion.entity.VeasionMusic;
 import cn.veasion.mapper.VeasionMusicMapper;
 import cn.veasion.service.VeasionMusicService;
+import cn.veasion.util.VeaUtil;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("veasionMusicService")
@@ -48,6 +48,17 @@ public class VeasionMusicServiceImpl implements VeasionMusicService{
 		return veasionMusicMapper.deleteByPrimaryKey(id);
 	}
 
+	@Override
+	public List<VeasionMusic> random(Integer count) {
+		int total=veasionMusicMapper.count(null);
+		int maxPage = (total - 1) / count + 1;
+		if(total > 0){
+			return veasionMusicMapper.select(new PageModel<VeasionMusic>(VeaUtil.random(1, maxPage), count));
+		}else{
+			return null;
+		}
+	}
+	
 	@Override
 	public void click(Integer id) {
 		veasionMusicMapper.click(id);

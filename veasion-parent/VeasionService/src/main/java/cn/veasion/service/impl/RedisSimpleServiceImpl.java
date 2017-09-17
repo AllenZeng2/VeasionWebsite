@@ -27,7 +27,12 @@ public class RedisSimpleServiceImpl implements RedisSimpleService{
 
 	@Override
 	public Serializable get(String key) {
-		return redisTemplate.opsForValue().get(key);
+		try{
+			return redisTemplate.opsForValue().get(key);
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

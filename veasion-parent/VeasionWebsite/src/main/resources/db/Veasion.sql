@@ -149,6 +149,7 @@ create table veasion_music (
 -- ----------------------------
 -- Records of veasion_music
 -- ----------------------------
+insert into veasion_music values(null, '背景音乐', 50, null, '未知', '本站', 0);
 
 -- ----------------------------
 -- Table structure for veasion_url
@@ -213,6 +214,7 @@ insert into veasion_url values ('46', '文字识别', '/VeasionWebsite/webpage/h
 insert into veasion_url values ('47', '看书1', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/94b04854-646f-4fd0-93b7-e8bbf55c1c2a.png', '3', NOW());
 insert into veasion_url values ('48', '推荐书籍', '/VeasionWebsite/webpage/home/book/book.jsp', '1', NOW());
 insert into veasion_url values ('49', '看书2', 'http://veasion.oss-cn-shanghai.aliyuncs.com/images/eff4f7af-01e1-43bd-b51a-58de513b4a2b.png', '3', NOW());
+insert into veasion_url values ('50', '背景音乐', '/VeasionWebsite/resources/other/bgsound.mp3', '4', NOW());
 
 -- ----------------------------
 -- Table structure for dictionary

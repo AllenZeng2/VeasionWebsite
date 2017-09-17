@@ -25,6 +25,7 @@ body, html {width: 100%;height: 100%;}
 .l-taskbar-task-icon {top: 3px;left: 6px;background-image: none;}
 .l-taskbar-task-content {margin-left: 30px;}
 .l-taskbar-task-icon img {width: 22px;height: 22px;}
+#loading{width:50px;height:50px;position:absolute;left:50%;margin-left:-25px;top:50%;margin-top:-75px;z-index: 100;}
 </style>
 </head>
 <!-- background: url(#) no-repeat  center center; -->
@@ -32,6 +33,7 @@ body, html {width: 100%;height: 100%;}
     <div id="winlinks">
         <ul></ul>
     </div>
+	<img alt="正在加载..." id="loading" src="${pageContext.request.contextPath}/resources/images/loading.gif" />
 </body>
 <script type="text/javascript">
 
@@ -178,6 +180,7 @@ body, html {width: 100%;height: 100%;}
 				
 				// 图标top, left自适应
 				onResize();
+				$("#loading").hide();
 			},
 			error:function(e) {
 				$.ligerDialog.alert('初始化数据错误！');

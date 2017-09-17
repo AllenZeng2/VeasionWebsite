@@ -19,11 +19,13 @@ import com.aliyun.oss.model.OSSObjectSummary;
 import com.aliyun.oss.model.ObjectListing;
 
 import cn.veasion.entity.DesktopStyle;
+import cn.veasion.entity.VeasionMusic;
 import cn.veasion.oss.OssFilePage;
 import cn.veasion.oss.OssUtil;
 import cn.veasion.service.DesktopStyleService;
 import cn.veasion.service.RedisSimpleService;
 import cn.veasion.service.UserService;
+import cn.veasion.service.VeasionMusicService;
 import cn.veasion.util.Constant;
 import cn.veasion.util.VeaUtil;
 import net.sf.json.JSONArray;
@@ -39,6 +41,8 @@ public class DesktopController {
 
 	@Autowired
 	private DesktopStyleService desktopStyleService;
+	@Autowired
+	private VeasionMusicService musicService;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -77,8 +81,11 @@ public class DesktopController {
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request){
 		try {
-			// index背景音乐
-			request.setAttribute("bgsounds", VeaUtil.asList("/VeasionWebsite/resources/other/bgsound.mp3"));
+			List<VeasionMusic> music=musicService.random(5);
+			if(!VeaUtil.isNullEmpty(music)){
+				// index背景音乐
+				request.setAttribute("bgsounds", music);
+			}
 			// index图片
 			Serializable ossUrlSet=redisSimpleService.get("OssUrlSet");
 			if(ossUrlSet!=null && ossUrlSet instanceof HashSet){

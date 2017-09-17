@@ -109,10 +109,12 @@ a:link,a:visited,a:hover{color:#330099;}
 		changeImage();
 		var top=$("#h1").position().top;
 		if(isNaN(top))
-			top=40;
+			top=45;
 		else if(top>80)
-			top=40;
-		$("#canvas").css('top',top);
+			top=45;
+		else
+			top+=8;
+		$("#canvas").css('top', top);
 		
 		var h=new Date().getHours();
 		if(h>=6 && h<=18){
@@ -171,27 +173,35 @@ a:link,a:visited,a:hover{color:#330099;}
 		}else if(status==1 && audio.paused){
 			audio.play();
 			musicTitle.innerHTML="暂停音乐";
-		}else if(audio.paused){
-			// 继续播放
-			audio.play();
-			// 重新播放
-			// audio.currentTime=0;
-			musicTitle.innerHTML="暂停音乐";
-		}else{
-			// 暂停
-			audio.pause();
-			musicTitle.innerHTML="继续播放";
+		}else if(status!=0 && status!=1){
+			if(audio.paused){
+				// 继续播放
+				audio.play();
+				// 重新播放
+				// audio.currentTime=0;
+				musicTitle.innerHTML="暂停音乐";
+			}else{
+				// 暂停
+				audio.pause();
+				musicTitle.innerHTML="继续播放";
+			}
 		}
 	}
 	
 	// 当前窗体关闭前暂停音乐
 	$(function(){
-		var icon_id='${param.icon_id}';
-		var obj=window.top.window.getOpenObj(icon_id);
-		var obj=window.top.$("#"+icon_id+" div[class='l-dialog-winbtn l-dialog-close']");
-		obj.click(function(){
-			playPause(0);
-		});
+		var icon_id="${param.icon_id}";
+		if(icon_id != "" && window.top.window != null){
+			var obj=window.top.window.getOpenObj(icon_id);
+			var obj=window.top.$("#"+icon_id+" div[class='l-dialog-winbtn l-dialog-close']");
+			obj.click(function(){
+				playPause(0);
+			});
+		}else{
+			$("body").onunload(function(){
+				playPause(0);
+			});
+		}
 	});
 </script>
 </head>
@@ -202,7 +212,7 @@ a:link,a:visited,a:hover{color:#330099;}
 		<!-- 背景音乐 -->
 		<audio id="bgsound" controls autoplay="autoplay" hidden="true">
 			<c:forEach items="${bgsounds }" var="music">
-				<source src="${music }" />
+				<source src="${music.url }" />
 			</c:forEach>
 		</audio>
 
@@ -235,7 +245,7 @@ a:link,a:visited,a:hover{color:#330099;}
 			<br />
 
 			<!-- 图片 -->
-			<img id="ws" src="" ondragstart="return false;" alt="Veasion" title="Veasion"/>
+			<img id="ws" src="${pageContext.request.contextPath}/resources/images/loading.gif" ondragstart="return false;" alt="Veasion" title="Veasion"/>
 		</div>
 
 		<!-- 晚上，烟花 -->

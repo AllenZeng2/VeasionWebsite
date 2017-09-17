@@ -21,7 +21,7 @@
   
   <!-- 分页查询 -->
   <select id="select" resultMap="SelectResultMap" parameterType="cn.veasion.bean.PageModel">
-  	select m.*, u1.url as 'url', u2.url as 'img' from veasion_music m, veasion_url u1, veasion_url u2 where m.url_id=u1.id and m.img_id=u2.id 
+  	select m.*, u1.url as 'url', u2.url as 'img' from veasion_url u1 ,veasion_music m left join veasion_url u2 on m.img_id=u2.id where m.url_id=u1.id 
   	<include refid="pageModelWhere" />
   	<if test="orderBy != null">
   		order by #{orderBy} ${isDesc ? "desc" : "asc"}
@@ -62,7 +62,7 @@
   </update>
   
   <select id="selectByPrimaryKey" resultMap="SelectResultMap" parameterType="java.lang.Integer" >
-    select m.*, u1.url as 'url', u2.url as 'img' from veasion_music m, veasion_url u1, veasion_url u2 where m.url_id=u1.id and m.img_id=u2.id and m.id=#{id}
+    select m.*, u1.url as 'url', u2.url as 'img' from veasion_url u1 ,veasion_music m left join veasion_url u2 on m.img_id=u2.id where m.url_id=u1.id and m.id=#{id}
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

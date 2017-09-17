@@ -56,8 +56,7 @@ public class IpUtil {
 			Elements es=doc.select(area);
 			return es.text();
 		} catch (Exception e) {
-			//System.err.println(e.getMessage());
-			//e.printStackTrace();
+			System.err.println(e.getMessage());
 		}
 		return null;
 	}

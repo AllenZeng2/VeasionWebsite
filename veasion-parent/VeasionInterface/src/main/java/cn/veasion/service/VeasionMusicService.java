@@ -24,6 +24,8 @@ public interface VeasionMusicService {
     
     int deleteByPrimaryKey(Integer id);
     
+    List<VeasionMusic> random(Integer count);
+    
     void click(Integer id);
     
     List<VeasionMusic> select(PageModel<VeasionMusic> pageModel);

@@ -48,6 +48,15 @@ body {padding: 0px;margin: 0;overflow: hidden;}
 				url : "${pageContext.request.contextPath}/webpage/admin/dictionaryList.jsp"
 			}
 		]
+	},{
+		text : 'user',
+		isexpand : false,
+		children : [ 
+			{
+				text : "来访记录",
+				url : "${pageContext.request.contextPath}/webpage/admin/ipList.jsp"
+			}
+		]
 	} ];
 
 	var tab = null;
