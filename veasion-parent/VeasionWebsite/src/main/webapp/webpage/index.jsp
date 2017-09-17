@@ -12,9 +12,7 @@ body {
 	-ms-user-select: none;
 	user-select: none;
 }
-.musicTitleClass{
-
-}
+.backMusic{width: 15px;height: 15px;background: url(${pageContext.request.contextPath}/resources/images/icons/music_disc.gif) 0 0 no-repeat;}
 #canvas, body div {width: 100%;}
 img {width: 350px;}
 .white {color: white;}
@@ -95,7 +93,7 @@ a:link,a:visited,a:hover{color:#330099;}
 	}
 }
 </style>
-<link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" />
+<link rel="Shortcut Icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" />
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.9.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/veasion/MouseClick.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/veasion/bgStyle1.js"></script>
@@ -169,21 +167,21 @@ a:link,a:visited,a:hover{color:#330099;}
 		var musicTitle=document.getElementById("musicTitle");
 		if(status==0 && !audio.paused){
 			audio.pause();
-			musicTitle.innerHTML="继续播放";
+			musicTitle.title="继续播放";
 		}else if(status==1 && audio.paused){
 			audio.play();
-			musicTitle.innerHTML="暂停音乐";
+			musicTitle.title="暂停音乐";
 		}else if(status!=0 && status!=1){
 			if(audio.paused){
 				// 继续播放
 				audio.play();
 				// 重新播放
 				// audio.currentTime=0;
-				musicTitle.innerHTML="暂停音乐";
+				musicTitle.title="暂停音乐";
 			}else{
 				// 暂停
 				audio.pause();
-				musicTitle.innerHTML="继续播放";
+				musicTitle.title="继续播放";
 			}
 		}
 	}
@@ -207,7 +205,7 @@ a:link,a:visited,a:hover{color:#330099;}
 </head>
 <body>
 	<!-- 切换音乐 -->
-	<span onclick="playPause(-1);" id="musicTitle" class="musicTitleClass black" style="font-size: 12px;margin-top: -5px;float: right;border: 1px solid #22629B;cursor: pointer;">暂停音乐</span>
+	<span class="backMusic" onclick="playPause(-1);" ontouchend="this.onclick();" id="musicTitle" style="margin-top: -5px;float: right;cursor: pointer;" title="暂停音乐"></span>
 	<div>
 		<!-- 背景音乐 -->
 		<audio id="bgsound" controls autoplay="autoplay" hidden="true">
@@ -224,23 +222,22 @@ a:link,a:visited,a:hover{color:#330099;}
 			<!-- 黑白切换 -->
 			<div class="black" style="width: 50%; text-align: left;">
 				&nbsp;&nbsp;
-				<div id="bgChange" onclick="bgChange();" title="晚上" class="font">晚上</div>
+				<div id="bgChange" onclick="bgChange();" ontouchend="this.onclick();" title="晚上" class="font">晚上</div>
 			</div>
 
 			<!-- 导航 -->
 			<div style="width: 50%; text-align: right;">
-				<a href="http://59.110.241.52/solo" title="Veasion的博客" class="font">
-					我的博客 </a> &nbsp;&nbsp; <a href="https://github.com/veasion"
-					title="My Github." class="font"> Github </a> &nbsp;&nbsp;
+				<a href="/solo" title="My Blogs." class="font" target="_blank" ontouchend="location.href=this.href;">我的博客</a> &nbsp;&nbsp;
+				<a href="https://github.com/veasion" title="My Github." class="font" target="_blank" ontouchend="location.href=this.href;">Github</a> &nbsp;&nbsp;
+				<a href="${pageContext.request.contextPath}/" title="My Website." class="font" ontouchend="location.href=this.href;">Website</a> &nbsp;
 			</div>
 		</div>
 
 		<div style="text-align: center;">
 			<br />
-			<div id="h1" class="black">Welcome To My First Dedicated Website！</div>
+			<div id="h1" class="black">Welcome To My First Website！</div>
 			<div class="font">
-				<a href="https://github.com/veasion" title="My Github."
-					style="text-decoration: none" target="_blank"> ===Github=== </a> <br />
+				<a href="${pageContext.request.contextPath}/" title="My Website." style="text-decoration: none" ontouchend="location.href=this.href;"> ===My Website=== </a> <br />
 			</div>
 			<br />
 

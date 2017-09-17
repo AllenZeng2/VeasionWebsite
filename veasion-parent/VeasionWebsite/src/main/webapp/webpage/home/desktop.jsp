@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>Veasion Website</title>
-<link rel="icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" />
+<link rel="Shortcut Icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" />
 <link href="${pageContext.request.contextPath}/resources/js/jquery/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
 <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/veasion/MouseClick.js"></script>
@@ -71,9 +71,7 @@ body, html {width: 100%;height: 100%;}
 			isResize : true,
 			modal : false,
 			title : title,
-			slide : false,
-			/*onLoaded :function(){},
-			onClose:function(){}*/
+			slide : false
 		});
 		
 		if(openMax!=null){
@@ -93,16 +91,15 @@ body, html {width: 100%;height: 100%;}
 	var links = [];
 	
 	function onResize() {
-		var linksHeight = $(window).height() - taskbarHeight;
+		var windowHeight=document.documentElement.clientHeight;
+		var linksHeight = windowHeight - taskbarHeight;
 		var winlinks = $("#winlinks");
 		winlinks.height(linksHeight);
 		var colMaxNumber = parseInt(linksHeight / linkHeight);//一列最多显示几个快捷方式
 		for (var i = 0, l = links.length; i < l; i++) {
 			var link = links[i];
 			var jlink = $("li[linkindex=" + i + "]", winlinks);
-			var top = (i % colMaxNumber) * linkHeight, left = parseInt(i
-					/ colMaxNumber)
-					* linkWidth;
+			var top = (i % colMaxNumber) * linkHeight, left = parseInt(i/colMaxNumber)*linkWidth;
 			if (isNaN(top) || isNaN(left))
 				continue;
 			jlink.css({
@@ -149,8 +146,8 @@ body, html {width: 100%;height: 100%;}
 	
 	$(window).resize(onResize);
 	$.ligerui.win.removeTaskbar = function() {}; //不允许移除
-	$.ligerui.win.createTaskbar(); //页面加载时创建任务栏
-		
+	$.ligerui.win.createTaskbar(); // 页面加载时创建任务栏
+	
 	//请求桌面数据
 	$(function() {
 		$.ajax({

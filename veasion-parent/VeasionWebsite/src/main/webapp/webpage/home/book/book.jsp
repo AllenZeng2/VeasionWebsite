@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>推荐书籍 | Veasion | 一个后端程序员的笔记</title>
-<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/favicon.ico" />
+<link rel="Shortcut Icon" type="image/png" href="${pageContext.request.contextPath}/favicon.ico" />
 <style>
 .container {
 	position: relative;

@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <title>Veasion - 500 Internal Server Error!</title>
   <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/error-init.css"/>
-  <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/favicon.ico" />
+  <link rel="Shortcut Icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/favicon.ico" />
 </head>
 <body>
     <div class="wrapper">

@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="Shortcut Icon" href="${pageContext.request.contextPath}/resources/images/favicon.ico" />
 <style type="text/css">
 .notepadEdit{
 	min-height:365px;width:100%;border:0px solid black;
