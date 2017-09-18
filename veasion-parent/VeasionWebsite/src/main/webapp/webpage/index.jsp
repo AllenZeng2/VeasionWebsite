@@ -242,7 +242,7 @@ a:link,a:visited,a:hover{color:#330099;}
 			<br />
 
 			<!-- 图片 -->
-			<img id="ws" src="${pageContext.request.contextPath}/resources/images/loading.gif" ondragstart="return false;" alt="Veasion" title="Veasion"/>
+			<img id="ws" src="" ondragstart="return false;" alt="Veasion" title="Veasion"/>
 		</div>
 
 		<!-- 晚上，烟花 -->
