@@ -20,12 +20,12 @@ public class ResponseBean<T> {
 	/**
 	 * 成功页面. 
 	 */
-	public static final String SUCCESS="status/success";
+	public static final String SUCCESS_DESKTOP="status/desktop/success";
 	
 	/**
 	 * 失败页面. 
 	 */
-	public static final String FAILURE="status/failure";
+	public static final String FAILURE_DESKTOP="status/desktop/failure";
 	
 	private int status;
 	

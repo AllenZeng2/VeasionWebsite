@@ -21,7 +21,8 @@
   		<properties>
   			<!-- mysql -->
   			<pom.jdbc.url>localhost</pom.jdbc.url>
-  			<pom.jdbc.database>veasion</pom.jdbc.database>
+  			<pom.jdbc.database.desktop>veasion_desktop</pom.jdbc.database.desktop>
+  			<pom.jdbc.database.website>veasion_website</pom.jdbc.database.website>
   			<pom.jdbc.username>root</pom.jdbc.username>
   			<pom.jdbc.password>root</pom.jdbc.password>
   			

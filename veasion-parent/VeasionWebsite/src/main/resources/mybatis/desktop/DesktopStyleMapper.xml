@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.veasion.mapper.desktop.DesktopStyleMapper" >
+  <resultMap id="BaseResultMap" type="cn.veasion.entity.desktop.DesktopStyle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="bgimg_id" property="bgimgId" jdbcType="INTEGER" />
+    <result column="cloumn_width" property="cloumnWidth" jdbcType="INTEGER" />
+    <result column="cloumn_height" property="cloumnHeight" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, author, bgimg_id, cloumn_width, cloumn_height, create_date, status
+  </sql>
+  
+  <resultMap id="SelectResultMap" type="cn.veasion.entity.desktop.DesktopStyle" extends="BaseResultMap">
+  	<result column="bgimg" property="bgimg" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 分页查询 -->
+  <select id="select" resultMap="SelectResultMap" parameterType="cn.veasion.bean.PageModel">
+  	select d.*, u.url as 'bgimg' from desktop_style d, veasion_url u where d.bgimg_id=u.id 
+  	<include refid="pageModelWhere" />
+  	<if test="orderBy != null">
+  		order by #{orderBy} ${isDesc ? "desc" : "asc"}
+  	</if>
+  	limit #{limitStart}, #{limitEnd}
+  </select>
+  
+  <select id="count" resultType="int" parameterType="cn.veasion.bean.PageModel">
+  	select count(*) from desktop_style d where 1=1 
+  	<include refid="pageModelWhere" />
+  </select>
+  
+  <sql id="pageModelWhere">
+  	<if test="obj != null">
+  		<if test="obj.id != null">
+  			and d.id=#{obj.id}
+  		</if>
+  		<if test="obj.name != null">
+  			and d.name like CONCAT('%',#{obj.name},'%')
+  		</if>
+  		<if test="obj.author != null">
+  			and d.author like CONCAT('%',#{obj.author},'%')
+  		</if>
+  		<if test="obj.bgimgId != null">
+  			and d.bgimg_id=#{obj.bgimgId}
+  		</if>
+  		<if test="obj.status != null">
+  			and d.status=#{obj.status}
+  		</if>
+  	</if>
+  </sql>
+  
+  <select id="selectDesktopCloumnIds" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select dsc.cloumn_id from desktop_style_cloumn dsc where dsc.style_id=#{styleId}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="SelectResultMap" parameterType="java.lang.Integer" >
+    select d.*, u.url as 'bgimg' from desktop_style d, veasion_url u where d.bgimg_id=u.id and d.id=#{id}
+  </select>
+  
+  <update id="styleSwitchStatus" parameterType="java.lang.Integer">
+  	update desktop_style set status=0 where status=1;
+  	update desktop_style set status=1 where id=#{id};
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from desktop_style where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <delete id="deleteStyleCloumn" parameterType="java.util.Map">
+  	<if test="styleId != null">
+  		<choose>
+  			<when test="cloumnIds != null">
+  				delete from desktop_style_cloumn where style_id = #{styleId} and cloumn_id in
+  				<foreach collection="cloumnIds" open="(" separator="," close=")" item="cid">
+  					${cid}
+  				</foreach>
+  			</when>
+  			<otherwise>
+  				delete from desktop_style_cloumn where style_id = #{styleId}
+  			</otherwise>
+  		</choose>
+  	</if>
+  </delete>
+  
+  <insert id="insert" parameterType="cn.veasion.entity.desktop.DesktopStyle" useGeneratedKeys="true" keyProperty="id">
+    insert into desktop_style (id, name, author, 
+      bgimg_id, cloumn_width, cloumn_height, 
+      create_date, status
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{bgimgId,jdbcType=INTEGER}, #{cloumnWidth,jdbcType=INTEGER}, #{cloumnHeight,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
+    )
+  </insert>
+  
+  <insert id="insertStyleCloumn" parameterType="java.util.Map">
+  	insert into desktop_style_cloumn(style_id, cloumn_id) values
+   	<foreach collection="cloumnIds" separator="," item="cid">
+   		(#{styleId}, #{cid})
+   	</foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="cn.veasion.entity.desktop.DesktopStyle" useGeneratedKeys="true" keyProperty="id">
+    insert into desktop_style
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="bgimgId != null" >
+        bgimg_id,
+      </if>
+      <if test="cloumnWidth != null" >
+        cloumn_width,
+      </if>
+      <if test="cloumnHeight != null" >
+        cloumn_height,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="bgimgId != null" >
+        #{bgimgId,jdbcType=INTEGER},
+      </if>
+      <if test="cloumnWidth != null" >
+        #{cloumnWidth,jdbcType=INTEGER},
+      </if>
+      <if test="cloumnHeight != null" >
+        #{cloumnHeight,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.veasion.entity.desktop.DesktopStyle" >
+    update desktop_style
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="bgimgId != null" >
+        bgimg_id = #{bgimgId,jdbcType=INTEGER},
+      </if>
+      <if test="cloumnWidth != null" >
+        cloumn_width = #{cloumnWidth,jdbcType=INTEGER},
+      </if>
+      <if test="cloumnHeight != null" >
+        cloumn_height = #{cloumnHeight,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.veasion.entity.desktop.DesktopStyle" >
+    update desktop_style
+    set name = #{name,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      bgimg_id = #{bgimgId,jdbcType=INTEGER},
+      cloumn_width = #{cloumnWidth,jdbcType=INTEGER},
+      cloumn_height = #{cloumnHeight,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

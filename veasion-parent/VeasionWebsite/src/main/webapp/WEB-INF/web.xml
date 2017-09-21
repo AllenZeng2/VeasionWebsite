@@ -72,8 +72,8 @@
   
   <!-- 首页 -->
   <welcome-file-list>
-  	<welcome-file>/webpage/home/desktop.jsp</welcome-file>
-   <!--  <welcome-file>/webpage/index.jsp</welcome-file> -->
+  	<welcome-file>/webpage/home/desktop/desktop.jsp</welcome-file>
+   <!--  <welcome-file>/webpage/home/desktop/index.jsp</welcome-file> -->
   </welcome-file-list>
   
   <error-page>

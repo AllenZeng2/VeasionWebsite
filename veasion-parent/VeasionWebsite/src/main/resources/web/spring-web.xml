@@ -52,11 +52,11 @@
 			<mvc:mapping path="/home/desktop/index" />
 			<mvc:mapping path="/home/desktop/loadMobileData" />
 			<mvc:mapping path="/home/desktop/loadDesktopData" />
-			<bean class="cn.veasion.web.user.UserInterceptor"/>
+			<bean class="cn.veasion.web.home.desktop.UserInterceptor"/>
 		</mvc:interceptor>
 		<mvc:interceptor>
-			<mvc:mapping path="/admin/**" />
-			<bean class="cn.veasion.handle.AdminInterceptor" />
+			<mvc:mapping path="/admin/desktop/**" />
+			<bean class="cn.veasion.handle.AdminDesktopInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 
